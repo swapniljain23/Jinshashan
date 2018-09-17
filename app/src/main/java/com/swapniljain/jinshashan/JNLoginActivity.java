@@ -20,10 +20,11 @@ import com.google.android.gms.tasks.Task;
 
 public class JNLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static String GOOGLE_SIGN_IN_ACCOUNT_EXTRA = "google_sign_in_account";
+
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 1001;
     private static String TAG = JNLoginActivity.class.toString();
-    private static String GOOGLE_SIGN_IN_ACCOUNT_EXTRA = "google_sign_in_auth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class JNLoginActivity extends AppCompatActivity implements View.OnClickLi
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-            //startListActivity(account);
+            startListActivity(account);
         }
     }
 
