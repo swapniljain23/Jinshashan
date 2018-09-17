@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "967214924434",
+    "firebase_url": "https://jinshashan-f82b2.firebaseio.com",
+    "project_id": "jinshashan-f82b2",
+    "storage_bucket": "jinshashan-f82b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967214924434:android:4d17cb3510265d16",
+        "android_client_info": {
+          "package_name": "com.swapniljain.jinshashan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967214924434-tjrnm1kkqmb4birgd0cj9bvtqk206mup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.swapniljain.jinshashan",
+            "certificate_hash": "fd51880aeccf934e689b9a90dda7d5ec2dd23932"
+          }
+        },
+        {
+          "client_id": "967214924434-etvoj13c1u65kjdja5dps81429g9rqha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw3Gbi1y6-XxaO9HGSLn9j2-vco6-1_ZE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967214924434-etvoj13c1u65kjdja5dps81429g9rqha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
