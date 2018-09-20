@@ -1,10 +1,9 @@
-package com.swapniljain.jinshashan;
+package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -22,7 +22,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.swapniljain.jinshashan.R;
 
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -69,14 +75,44 @@ public class JNListActivity extends AppCompatActivity
             if (account == null) {
                 // Handle error here.
             } else {
-                //
+                // Set user info.
                 View headerView = navigationView.getHeaderView(0);
-                TextView userName = headerView.findViewById(R.id.user_name);
-                TextView userEmailId = headerView.findViewById(R.id.user_email_id);
+                TextView userName = headerView.findViewById(R.id.user_name_tv);
+                TextView userEmailId = headerView.findViewById(R.id.user_email_id_tv);
+                ImageView userImageView = headerView.findViewById(R.id.user_image_view);
                 userName.setText(account.getDisplayName());
                 userEmailId.setText(account.getEmail());
+                Picasso.get().load(account.getPhotoUrl())
+                        .resize(getResources().getInteger(R.integer.user_image_width),
+                                getResources().getInteger(R.integer.user_image_height))
+                        .centerCrop().into(userImageView);
             }
         }
+
+        // Write a message to the database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("data");
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.d(TAG,"Card count: " + dataSnapshot.getChildrenCount());
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot snapshot: children) {
+                    Log.d(TAG,"Children count: "+snapshot.getChildrenCount());
+                    Log.d(TAG, (String) snapshot.child("specialRemarks").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
 
     @Override

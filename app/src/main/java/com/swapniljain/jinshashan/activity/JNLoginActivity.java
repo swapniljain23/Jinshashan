@@ -1,12 +1,9 @@
-package com.swapniljain.jinshashan;
+package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -17,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.swapniljain.jinshashan.R;
 
 public class JNLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
