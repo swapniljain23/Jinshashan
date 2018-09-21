@@ -4,23 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.swapniljain.jinshashan.R;
 
-public class JNLoginActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.Arrays;
+import java.util.List;
 
-    public static String GOOGLE_SIGN_IN_ACCOUNT_EXTRA = "google_sign_in_account";
+public class JNLoginActivity extends AppCompatActivity {
 
-    private GoogleSignInClient mGoogleSignInClient;
+    public static String FIREBASE_USER_EXTRA = "firebase_user";
+
     private static int RC_SIGN_IN = 1001;
     private static String TAG = JNLoginActivity.class.toString();
 
@@ -29,82 +25,41 @@ public class JNLoginActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jnlogin);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        // Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        // Set the dimensions of the sign-in button.
-        SignInButton googleSignInButton = findViewById(R.id.google_sing_in_button);
-        googleSignInButton.setSize(SignInButton.SIZE_WIDE);
-
-        // Set onClickListener on Google sign in button.
-        googleSignInButton.setOnClickListener(this);
-
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) {
-            startListActivity(account);
-        }
-    }
-
-    // View.OnClickListener methods.
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.google_sing_in_button:
-                performGoogleSignIn();
-                break;
-            default:
-        }
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in.
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                startListActivity(user);
+            } else {
+                // Sign in failed.
+            }
+        } else {
+            // Wrong request code. Do nothing.
         }
-    }
-
-    // Private methods.
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            startListActivity(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            startListActivity(null);
-        }
-    }
-
-    // Start google sign-in flow.
-    private void performGoogleSignIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     // Start list activity, must be called after authentication.
-    private void startListActivity(GoogleSignInAccount account) {
+    private void startListActivity(FirebaseUser user) {
         Intent intent = new Intent(this, JNListActivity.class);
-        intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_EXTRA, account);
+        intent.putExtra(FIREBASE_USER_EXTRA, user);
         startActivity(intent);
     }
 }

@@ -3,54 +3,45 @@ package com.swapniljain.jinshashan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 import com.swapniljain.jinshashan.R;
+import com.swapniljain.jinshashan.model.JNListDataModel;
+
+import java.util.ArrayList;
 
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String TAG = JNListActivity.class.toString();
-    private GoogleSignInClient mGoogleSignInClient;
     private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jnlist);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,10 +60,10 @@ public class JNListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(JNLoginActivity.GOOGLE_SIGN_IN_ACCOUNT_EXTRA)) {
-            GoogleSignInAccount account =
-                    intent.getParcelableExtra(JNLoginActivity.GOOGLE_SIGN_IN_ACCOUNT_EXTRA);
-            if (account == null) {
+        if (intent.hasExtra(JNLoginActivity.FIREBASE_USER_EXTRA)) {
+            FirebaseUser firebaseUser =
+                    intent.getParcelableExtra(JNLoginActivity.FIREBASE_USER_EXTRA);
+            if (firebaseUser == null) {
                 // Handle error here.
             } else {
                 // Set user info.
@@ -80,16 +71,17 @@ public class JNListActivity extends AppCompatActivity
                 TextView userName = headerView.findViewById(R.id.user_name_tv);
                 TextView userEmailId = headerView.findViewById(R.id.user_email_id_tv);
                 ImageView userImageView = headerView.findViewById(R.id.user_image_view);
-                userName.setText(account.getDisplayName());
-                userEmailId.setText(account.getEmail());
-                Picasso.get().load(account.getPhotoUrl())
+                userName.setText(firebaseUser.getDisplayName());
+                userEmailId.setText(firebaseUser.getEmail());
+                Log.d(TAG, "Photo Url: " + firebaseUser.getPhotoUrl());
+                Picasso.get().load(firebaseUser.getPhotoUrl())
                         .resize(getResources().getInteger(R.integer.user_image_width),
                                 getResources().getInteger(R.integer.user_image_height))
                         .centerCrop().into(userImageView);
             }
         }
 
-        // Write a message to the database
+        // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("data");
 
@@ -99,11 +91,12 @@ public class JNListActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                Log.d(TAG,"Card count: " + dataSnapshot.getChildrenCount());
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                ArrayList<JNListDataModel> cardsArray = new ArrayList<>();
                 for (DataSnapshot snapshot: children) {
-                    Log.d(TAG,"Children count: "+snapshot.getChildrenCount());
-                    Log.d(TAG, (String) snapshot.child("specialRemarks").getValue());
+                    JNListDataModel dataModel = new JNListDataModel(snapshot);
+                    cardsArray.add(dataModel);
+                    Log.d(TAG,dataModel.toString());
                 }
             }
 
@@ -174,9 +167,9 @@ public class JNListActivity extends AppCompatActivity
     // Private methods.
 
     private void performSignOut() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
                         Intent intent = new Intent(getApplicationContext(), JNLoginActivity.class);
                         startActivity(intent);
