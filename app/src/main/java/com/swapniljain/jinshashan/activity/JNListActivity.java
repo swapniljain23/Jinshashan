@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -29,13 +31,17 @@ import com.squareup.picasso.Picasso;
 
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
+import com.swapniljain.jinshashan.utils.JNListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String TAG = JNListActivity.class.toString();
+    private RecyclerView mJNListRecyclerView;
+    private List<JNListDataModel> mDataModels;
     private DrawerLayout mDrawer;
 
     @Override
@@ -92,12 +98,13 @@ public class JNListActivity extends AppCompatActivity
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                ArrayList<JNListDataModel> cardsArray = new ArrayList<>();
+                mDataModels = new ArrayList<>();
                 for (DataSnapshot snapshot: children) {
                     JNListDataModel dataModel = new JNListDataModel(snapshot);
-                    cardsArray.add(dataModel);
                     Log.d(TAG,dataModel.toString());
+                    mDataModels.add(dataModel);
                 }
+                populateUI();
             }
 
             @Override
@@ -175,5 +182,13 @@ public class JNListActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
+    }
+
+    private void populateUI() {
+        mJNListRecyclerView = (RecyclerView) findViewById(R.id.rv_jnlist);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mJNListRecyclerView.setLayoutManager(layoutManager);
+        JNListAdapter listAdapter =  new JNListAdapter(mDataModels);
+        mJNListRecyclerView.setAdapter(listAdapter);
     }
 }
