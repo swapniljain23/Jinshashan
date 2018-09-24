@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JNListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, JNListAdapter.CardViewClickListener {
 
     private static String TAG = JNListActivity.class.toString();
     private RecyclerView mJNListRecyclerView;
@@ -152,23 +152,31 @@ public class JNListActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            // Do nothing. already at home.
+        } else if (id == R.id.nav_favorites) {
+            // Start favorite activity.
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_vow) {
+            // Start take a vow activity.
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_sign_out) {
             // Perform sign out.
             performSignOut();
+        } else if (id == R.id.nav_share) {
+            // Share app link.
+
+        } else if (id == R.id.nav_send_feedback) {
+            // Start send feedback activity.
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onCardViewClick(int clickedCardItemPosition) {
+        Log.d(TAG, "onCardViewClick At Position: " + clickedCardItemPosition);
     }
 
     // Private methods.
@@ -185,10 +193,10 @@ public class JNListActivity extends AppCompatActivity
     }
 
     private void populateUI() {
-        mJNListRecyclerView = (RecyclerView) findViewById(R.id.rv_jnlist);
+        mJNListRecyclerView = findViewById(R.id.rv_jnlist);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mJNListRecyclerView.setLayoutManager(layoutManager);
-        JNListAdapter listAdapter =  new JNListAdapter(mDataModels);
+        JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
         mJNListRecyclerView.setAdapter(listAdapter);
     }
 }

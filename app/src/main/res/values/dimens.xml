@@ -7,6 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!--Material design-->
-    <!--<dimen name="mtrl_card_spacing">16dp</dimen>-->
+
 
 </resources>
