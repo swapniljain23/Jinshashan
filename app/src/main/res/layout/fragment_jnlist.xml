@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.JNListActivity"
-    tools:showIn="@layout/app_bar_jnlist">
+    tools:context=".activity.JNListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

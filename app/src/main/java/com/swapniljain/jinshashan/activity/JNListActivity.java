@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -22,26 +22,15 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import com.swapniljain.jinshashan.R;
-import com.swapniljain.jinshashan.model.JNListDataModel;
-import com.swapniljain.jinshashan.utils.JNListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
 public class JNListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, JNListAdapter.CardViewClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String TAG = JNListActivity.class.toString();
-    private RecyclerView mJNListRecyclerView;
-    private List<JNListDataModel> mDataModels;
     private DrawerLayout mDrawer;
 
     @Override
@@ -87,32 +76,12 @@ public class JNListActivity extends AppCompatActivity
             }
         }
 
-        // Firebase connection.
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("data");
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                mDataModels = new ArrayList<>();
-                for (DataSnapshot snapshot: children) {
-                    JNListDataModel dataModel = new JNListDataModel(snapshot);
-                    Log.d(TAG,dataModel.toString());
-                    mDataModels.add(dataModel);
-                }
-                populateUI();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+        // Tab layout.
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        JNPagerAdapter pagerAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -174,11 +143,6 @@ public class JNListActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onCardViewClick(int clickedCardItemPosition) {
-        Log.d(TAG, "onCardViewClick At Position: " + clickedCardItemPosition);
-    }
-
     // Private methods.
 
     private void performSignOut() {
@@ -190,13 +154,5 @@ public class JNListActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
-    }
-
-    private void populateUI() {
-        mJNListRecyclerView = findViewById(R.id.rv_jnlist);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mJNListRecyclerView.setLayoutManager(layoutManager);
-        JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
-        mJNListRecyclerView.setAdapter(listAdapter);
     }
 }

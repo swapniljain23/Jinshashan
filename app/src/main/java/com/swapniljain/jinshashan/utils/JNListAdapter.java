@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
@@ -45,7 +46,10 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
         JNListDataModel dataModel = mDataModels.get(position);
         holder.card_title.setText(dataModel.specialRemarks);
         holder.card_subtitle.setText(mContext.getResources().getString(R.string.default_text));
-        holder.card_image.setImageResource(R.drawable.image_placeholder);
+        //holder.card_image_view.setImageResource(R.drawable.image_placeholder);
+        Picasso.get()
+                .load(dataModel.getPhotoURL())
+                .into(holder.card_image_view);
     }
 
     @Override
@@ -63,14 +67,14 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
 
         private TextView card_title;
         private TextView card_subtitle;
-        private ImageView card_image;
+        private ImageView card_image_view;
 
         public JNListViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
             card_title = view.findViewById(R.id.tv_card_title);
             card_subtitle = view.findViewById(R.id.tv_card_subtitle);
-            card_image = view.findViewById(R.id.iv_card_image);
+            card_image_view = view.findViewById(R.id.iv_card_image);
         }
 
         @Override
