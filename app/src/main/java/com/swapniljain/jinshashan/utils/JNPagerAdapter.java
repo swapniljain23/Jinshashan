@@ -1,6 +1,7 @@
 package com.swapniljain.jinshashan.utils;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +9,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.swapniljain.jinshashan.fragments.JNListFragment;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class JNPagerAdapter extends FragmentPagerAdapter {
+
     private Context mContext;
+    private List<String> mSectList =
+            Arrays.asList("Digambar", "Shwetambar", "Terapanthi", "Sthanakvasi");
+    public static String SECT = "sect";
 
     public JNPagerAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -18,29 +26,22 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return new JNListFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(SECT, mSectList.get(i));
+        Fragment fragment = new JNListFragment();
+        fragment.setArguments(arguments);
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return mSectList.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Tab 1";
-            case 1:
-                return "Tab 2";
-            case 2:
-                return "Tab 3";
-            case 3:
-                return "Tab 4";
-            default:
-                return "Unknown";
-        }
+        return mSectList.get(position);
     }
 
 }

@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNListAdapter;
+import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,9 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_jnlist, container, false);
+
+        String sect = getArguments().getString(JNPagerAdapter.SECT);
+        Log.d(TAG,"Sect: " + sect);
 
         // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -77,6 +81,19 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG,"onResume Called.");
+    }
+
+    @Override
+    public void onCardViewClick(int clickedCardItemPosition) {
+        Log.d(TAG,"onCardViewClick at position: " + clickedCardItemPosition);
+    }
+
+    // Private.
+
     public void populateUI() {
         mJNListRecyclerView = getActivity().findViewById(R.id.rv_jnlist);
         LinearLayoutManager layoutManager =
@@ -84,10 +101,5 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         mJNListRecyclerView.setLayoutManager(layoutManager);
         JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
         mJNListRecyclerView.setAdapter(listAdapter);
-    }
-
-    @Override
-    public void onCardViewClick(int clickedCardItemPosition) {
-        Log.d(TAG,"onCardViewClick at position: " + clickedCardItemPosition);
     }
 }
