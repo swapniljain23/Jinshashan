@@ -3,6 +3,7 @@ package com.swapniljain.jinshashan.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,10 +53,10 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
         holder.card_subtitle.setText("Dikshit since: " + dataModel.dikshaInfo.dikshaDate);
         //holder.card_image_view.setImageResource(R.drawable.image_placeholder);
         String photoURL = dataModel.getPhotoURL();
-        if (photoURL != null && photoURL != "") {
-//            Picasso.get()
-//                    .load(photoURL)
-//                    .into(holder.card_image_view);
+        if (!TextUtils.isEmpty(photoURL)) {
+            Picasso.get()
+                    .load(photoURL)
+                    .into(holder.card_image_view);
         }
     }
 

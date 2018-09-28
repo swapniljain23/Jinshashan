@@ -3,6 +3,8 @@ package com.swapniljain.jinshashan.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +36,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
     private List<JNListDataModel> mDataModels;
     private static String TAG = JNListFragment.class.toString();
     private Context mContext;
+    private String mSect;
 
     public JNListFragment() {
         // Required empty public constructor
@@ -46,8 +49,8 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
 
         View rootView = inflater.inflate(R.layout.fragment_jnlist, container, false);
 
-        String sect = getArguments().getString(JNPagerAdapter.SECT);
-        Log.d(TAG,"Sect: " + sect);
+        mSect = getArguments().getString(JNPagerAdapter.SECT);
+        Log.d(TAG,"Sect: " + mSect);
 
         // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -59,6 +62,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 mDataModels = new ArrayList<>();
                 for (DataSnapshot snapshot: children) {
@@ -80,6 +84,15 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mJNListRecyclerView = view.findViewById(R.id.rv_jnlist);
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(getContext());
+        mJNListRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG,"onResume Called.");
@@ -93,10 +106,6 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
     // Private.
 
     public void populateUI() {
-        mJNListRecyclerView = getActivity().findViewById(R.id.rv_jnlist);
-        LinearLayoutManager layoutManager =
-                new LinearLayoutManager(getActivity().getApplicationContext());
-        mJNListRecyclerView.setLayoutManager(layoutManager);
         JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
         mJNListRecyclerView.setAdapter(listAdapter);
     }
