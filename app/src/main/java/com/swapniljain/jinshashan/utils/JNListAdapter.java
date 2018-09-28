@@ -3,6 +3,7 @@ package com.swapniljain.jinshashan.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
+import java.net.URL;
 import java.util.List;
 
 public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListViewHolder> {
 
+    private String TAG = JNListAdapter.class.toString();
     private List<JNListDataModel> mDataModels;
     private Context mContext;
 
@@ -44,12 +47,16 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
     @Override
     public void onBindViewHolder(@NonNull JNListViewHolder holder, int position) {
         JNListDataModel dataModel = mDataModels.get(position);
-        holder.card_title.setText(dataModel.specialRemarks);
-        holder.card_subtitle.setText(mContext.getResources().getString(R.string.default_text));
+        holder.card_title.setText(dataModel.dikshaInfo.dikshaName);
+        //holder.card_subtitle.setText(mContext.getResources().getString(R.string.default_text));
+        holder.card_subtitle.setText("Dikshit since: " + dataModel.dikshaInfo.dikshaDate);
         //holder.card_image_view.setImageResource(R.drawable.image_placeholder);
-        Picasso.get()
-                .load(dataModel.getPhotoURL())
-                .into(holder.card_image_view);
+        String photoURL = dataModel.getPhotoURL();
+        if (photoURL != null && photoURL != "") {
+//            Picasso.get()
+//                    .load(photoURL)
+//                    .into(holder.card_image_view);
+        }
     }
 
     @Override
