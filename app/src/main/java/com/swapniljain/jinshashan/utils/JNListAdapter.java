@@ -56,6 +56,12 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
         if (!TextUtils.isEmpty(photoURL)) {
             Picasso.get()
                     .load(photoURL)
+                    .placeholder(R.drawable.card_placeholder)
+                    .into(holder.card_image_view);
+        } else {
+            Picasso.get()
+                    .load("some_fake_path")
+                    .placeholder(R.drawable.card_placeholder)
                     .into(holder.card_image_view);
         }
     }

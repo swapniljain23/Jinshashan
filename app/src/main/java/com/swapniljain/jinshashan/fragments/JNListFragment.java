@@ -2,6 +2,7 @@ package com.swapniljain.jinshashan.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.swapniljain.jinshashan.R;
+import com.swapniljain.jinshashan.activity.JNDetailActivity;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNListAdapter;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
@@ -100,7 +102,12 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
 
     @Override
     public void onCardViewClick(int clickedCardItemPosition) {
+        // Start detail activity.
         Log.d(TAG,"onCardViewClick at position: " + clickedCardItemPosition);
+        Intent intent = new Intent(getContext(), JNDetailActivity.class);
+        intent.putExtra(JNDetailActivity.LIST_MODEL_EXTRA,
+                        mDataModels.get(clickedCardItemPosition));
+        startActivity(intent);
     }
 
     // Private.

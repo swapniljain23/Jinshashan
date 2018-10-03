@@ -1,10 +1,51 @@
 package com.swapniljain.jinshashan.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.DataSnapshot;
 
-public class JNListDataModel {
+public class JNListDataModel implements Parcelable {
 
     // Inner classes.
+
+    public class DikshaInfo {
+        public String dikshaName;
+        public String dikshaDate;
+        public String dikshaCity;
+        public String dikshaState;
+        public String dikshitBy;
+        public String dikshaGuru;
+        public String remarks;
+
+        // Default constructor.
+        public DikshaInfo () {
+
+        }
+
+        // Constructor.
+        public DikshaInfo(DataSnapshot snapshot) {
+            dikshaName = snapshot.child("dikshaName").getValue(String.class);
+            dikshaDate = snapshot.child("dikshaDate").getValue(String.class);
+            dikshaCity = snapshot.child("dikshaCity").getValue(String.class);
+            dikshaState = snapshot.child("dikshaState").getValue(String.class);
+            dikshitBy = snapshot.child("dikshitBy").getValue(String.class);
+            dikshaGuru = snapshot.child("dikshaGuru").getValue(String.class);
+            remarks = snapshot.child("remarks").getValue(String.class);
+        }
+
+        @Override
+        public String toString() {
+            return "DikshaInfo: " +
+                    dikshaName + ", " +
+                    dikshaDate + ", " +
+                    dikshaCity + ", " +
+                    dikshaState + ", " +
+                    dikshitBy + ", " +
+                    dikshaGuru + ", " +
+                    remarks;
+        }
+    }
 
     public class PersonalInfo {
         public String fullName;
@@ -16,6 +57,11 @@ public class JNListDataModel {
         public String birthState;
         public String education;
         public String remarks;
+
+        // Default constructor.
+        public PersonalInfo () {
+
+        }
 
         // Constructor.
         public PersonalInfo(DataSnapshot snapshot) {
@@ -45,45 +91,17 @@ public class JNListDataModel {
         }
     }
 
-    public class DikshaInfo {
-        public String dikshaName;
-        public String dikshaDate;
-        public String dikshaCity;
-        public String dikshaState;
-        public String dikshitBy;
-        public String dikshaGuru;
-        public String remarks;
-
-        // Constructor.
-        public DikshaInfo(DataSnapshot snapshot) {
-            dikshaName = snapshot.child("dikshaName").getValue(String.class);
-            dikshaDate = snapshot.child("dikshaDate").getValue(String.class);
-            dikshaCity = snapshot.child("dikshaCity").getValue(String.class);
-            dikshaState = snapshot.child("dikshaState").getValue(String.class);
-            dikshitBy = snapshot.child("dikshitBy").getValue(String.class);
-            dikshaGuru = snapshot.child("dikshaGuru").getValue(String.class);
-            remarks = snapshot.child("remarks").getValue(String.class);
-        }
-
-        @Override
-        public String toString() {
-            return "DikshaInfo: " +
-                    dikshaName + ", " +
-                    dikshaDate + ", " +
-                    dikshaCity + ", " +
-                    dikshaState + ", " +
-                    dikshitBy + ", " +
-                    dikshaGuru + ", " +
-                    remarks;
-        }
-    }
-
     public class Sect {
         public String sect1;
         public String sect2;
         public String sect3;
         public String sect4;
         public String sect5;
+
+        // Default constructor.
+        public Sect () {
+
+        }
 
         // Constructor.
         public Sect (DataSnapshot snapshot) {
@@ -113,6 +131,12 @@ public class JNListDataModel {
         public String contactPhoneNo;
         public String contactEmail;
         public String remarks;
+        public String lastUpdatedTimestamp;
+
+        // Default constructor.
+        public RecentInfo () {
+
+        }
 
         // Constructor.
         public RecentInfo(DataSnapshot snapshot) {
@@ -123,6 +147,7 @@ public class JNListDataModel {
             contactPhoneNo = snapshot.child("contactPhoneNo").getValue(String.class);
             contactEmail = snapshot.child("contactEmail").getValue(String.class);
             remarks = snapshot.child("remarks").getValue(String.class);
+            lastUpdatedTimestamp = snapshot.child("lastUpdatedTimestamp").getValue(String.class);
         }
 
         @Override
@@ -134,15 +159,16 @@ public class JNListDataModel {
                     contactName + ", " +
                     contactPhoneNo + ", " +
                     contactEmail + ", " +
-                    remarks;
+                    remarks + ", " +
+                    lastUpdatedTimestamp;
         }
     }
 
     // Properties.
 
-    public PersonalInfo personalInfo;
-
     public DikshaInfo dikshaInfo;
+
+    public PersonalInfo personalInfo;
 
     public RecentInfo recentInfo;
 
@@ -155,26 +181,127 @@ public class JNListDataModel {
     // Constructor.
 
     public JNListDataModel(DataSnapshot dataSnapshot) {
-        photoURL = dataSnapshot.child("photoUrl").getValue(String.class);
-        specialRemarks = dataSnapshot.child("specialRemarks").getValue(String.class);
-        personalInfo = new PersonalInfo(dataSnapshot.child("personalInfo"));
         dikshaInfo = new DikshaInfo(dataSnapshot.child("dikshaInfo"));
+        personalInfo = new PersonalInfo(dataSnapshot.child("personalInfo"));
         sect = new Sect(dataSnapshot.child("sect"));
         recentInfo = new RecentInfo(dataSnapshot.child("recentInfo"));
+        photoURL = dataSnapshot.child("photoUrl").getValue(String.class);
+        specialRemarks = dataSnapshot.child("specialRemarks").getValue(String.class);
     }
+
+    protected JNListDataModel(Parcel in) {
+        dikshaInfo = new DikshaInfo();
+        dikshaInfo.dikshaName = in.readString();
+        dikshaInfo.dikshaDate = in.readString();
+        dikshaInfo.dikshaCity = in.readString();
+        dikshaInfo.dikshaState = in.readString();
+        dikshaInfo.dikshitBy = in.readString();
+        dikshaInfo.dikshaGuru = in.readString();
+        dikshaInfo.remarks = in.readString();
+
+        personalInfo = new PersonalInfo();
+        personalInfo.fullName = in.readString();
+        personalInfo.dateOfBirth = in.readString();
+        personalInfo.gender = in.readString();
+        personalInfo.fatherNmae = in.readString();
+        personalInfo.motherName = in.readString();
+        personalInfo.birthCity = in.readString();
+        personalInfo.birthState = in.readString();
+        personalInfo.education = in.readString();
+        personalInfo.remarks = in.readString();
+
+        sect = new Sect();
+        sect.sect1 = in.readString();
+        sect.sect2 = in.readString();
+        sect.sect3 = in.readString();
+        sect.sect4 = in.readString();
+        sect.sect5 = in.readString();
+
+        recentInfo = new RecentInfo();
+        recentInfo.address = in.readString();
+        recentInfo.city = in.readString();
+        recentInfo.state = in.readString();
+        recentInfo.contactName = in.readString();
+        recentInfo.contactPhoneNo = in.readString();
+        recentInfo.contactEmail = in.readString();
+        recentInfo.remarks = in.readString();
+        recentInfo.lastUpdatedTimestamp = in.readString();
+
+        photoURL = in.readString();
+        specialRemarks = in.readString();
+    }
+
+    public static final Creator<JNListDataModel> CREATOR = new Creator<JNListDataModel>() {
+        @Override
+        public JNListDataModel createFromParcel(Parcel source) {
+            return new JNListDataModel(source);
+        }
+
+        @Override
+        public JNListDataModel[] newArray(int size) {
+            return new JNListDataModel[size];
+        }
+    };
 
     @Override
     public String toString() {
-        return  personalInfo.toString() + "\n" +
-                dikshaInfo.toString() + "\n" +
+        return  dikshaInfo.toString() + "\n" +
+                personalInfo.toString() + "\n" +
                 sect.toString() + "\n" +
                 recentInfo.toString() + "\n" +
                 "Photo Url: " + photoURL + "\n" +
                 "Special Remarks: " + specialRemarks;
     }
 
-    // Setters, Getters.
+    // Parcelable implementation.
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(dikshaInfo.dikshaName);
+        dest.writeString(dikshaInfo.dikshaDate);
+        dest.writeString(dikshaInfo.dikshaCity);
+        dest.writeString(dikshaInfo.dikshaState);
+        dest.writeString(dikshaInfo.dikshitBy);
+        dest.writeString(dikshaInfo.dikshaGuru);
+        dest.writeString(dikshaInfo.remarks);
+
+        dest.writeString(personalInfo.fullName);
+        dest.writeString(personalInfo.dateOfBirth);
+        dest.writeString(personalInfo.gender);
+        dest.writeString(personalInfo.fatherNmae);
+        dest.writeString(personalInfo.motherName);
+        dest.writeString(personalInfo.birthCity);
+        dest.writeString(personalInfo.birthState);
+        dest.writeString(personalInfo.education);
+        dest.writeString(personalInfo.remarks);
+
+        dest.writeString(sect.sect1);
+        dest.writeString(sect.sect2);
+        dest.writeString(sect.sect3);
+        dest.writeString(sect.sect4);
+        dest.writeString(sect.sect5);
+
+        dest.writeString(recentInfo.address);
+        dest.writeString(recentInfo.city);
+        dest.writeString(recentInfo.state);
+        dest.writeString(recentInfo.contactName);
+        dest.writeString(recentInfo.contactPhoneNo);
+        dest.writeString(recentInfo.contactEmail);
+        dest.writeString(recentInfo.remarks);
+        dest.writeString(recentInfo.lastUpdatedTimestamp);
+
+        dest.writeString(photoURL);
+        dest.writeString(specialRemarks);
+    }
+
+
+    // Setters, Getters.
 
     public PersonalInfo getPersonalInfo() {
         return personalInfo;

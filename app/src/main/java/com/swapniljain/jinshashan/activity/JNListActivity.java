@@ -145,10 +145,12 @@ public class JNListActivity extends AppCompatActivity
             // Do nothing. already at home.
         } else if (id == R.id.nav_favorites) {
             // Start favorite activity.
-
+            Intent favoritesIntent = new Intent(this, JNFavoritesActivity.class);
+            startActivity(favoritesIntent);
         } else if (id == R.id.nav_vow) {
             // Start take a vow activity.
-
+            Intent takeAVowIntent = new Intent(this, JNTakeAVowActivity.class);
+            startActivity(takeAVowIntent);
         } else if (id == R.id.nav_sign_out) {
             // Perform sign out.
             performSignOut();

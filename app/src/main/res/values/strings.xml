@@ -5,14 +5,19 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="title_activity_jnlogin">Namo Loye Savv Sahunam</string>
+
 
     <string name="action_sort">Sort By</string>
     <string name="action_search">Search</string>
 
     <string name="default_text">Default Text</string>
+    <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Activity title text. -->
+    <string name="title_activity_jndetail">Namo Loye Savv Sahunam</string>
+    <string name="title_activity_jnfavorites">Favorites</string>
+    <string name="title_activity_jntake_avow">Take A Vow Today</string>
+    <string name="title_activity_jnlogin">Namo Loye Savv Sahunam</string>
+    <string name="title_activity_jnlist">Namo Loye Savv Sahunam</string>
 
 </resources>
