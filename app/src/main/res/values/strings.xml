@@ -6,10 +6,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-
+    <!--Action bar-->
     <string name="action_sort">Sort By</string>
     <string name="action_search">Search</string>
 
+    <!--Default text-->
     <string name="default_text">Default Text</string>
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
 

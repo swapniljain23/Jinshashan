@@ -46,20 +46,19 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
     @Override
     public void onBindViewHolder(@NonNull JNListViewHolder holder, int position) {
         JNListDataModel dataModel = mDataModels.get(position);
+
+        // Set the data.
         holder.card_title.setText(dataModel.dikshaInfo.dikshaName);
-        //holder.card_subtitle.setText(mContext.getResources().getString(R.string.default_text));
         holder.card_subtitle.setText("Dikshit since: " + dataModel.dikshaInfo.dikshaDate);
-        //holder.card_image_view.setImageResource(R.drawable.image_placeholder);
         String photoURL = dataModel.getPhotoURL();
-        if (!TextUtils.isEmpty(photoURL)) {
+        if (photoURL.isEmpty()) {
             Picasso.get()
                     .load(photoURL)
                     .placeholder(R.drawable.card_placeholder)
                     .into(holder.card_image_view);
         } else {
             Picasso.get()
-                    .load("some_fake_path")
-                    .placeholder(R.drawable.card_placeholder)
+                    .load(R.drawable.card_placeholder)
                     .into(holder.card_image_view);
         }
     }

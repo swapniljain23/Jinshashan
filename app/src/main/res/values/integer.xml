@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Logged in user image-->
     <integer name="user_image_width">240</integer>
     <integer name="user_image_height">240</integer>
+
+    <!--Material Card-->
+    <integer name="material_card_height">300</integer>
+    <integer name="material_card_image_height">200</integer>
+
+
 </resources>

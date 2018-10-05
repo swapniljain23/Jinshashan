@@ -26,7 +26,8 @@
         <activity android:name=".activity.JNSearchResultsActivity" />
         <activity
             android:name=".activity.JNDetailActivity"
-            android:label="@string/title_activity_jndetail" />
+            android:label="@string/title_activity_jndetail"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.JNFavoritesActivity"
             android:label="@string/title_activity_jnfavorites" />
