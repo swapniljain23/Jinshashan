@@ -51,14 +51,14 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
         holder.card_title.setText(dataModel.dikshaInfo.dikshaName);
         holder.card_subtitle.setText("Dikshit since: " + dataModel.dikshaInfo.dikshaDate);
         String photoURL = dataModel.getPhotoURL();
-        if (photoURL.isEmpty()) {
+        if (TextUtils.isEmpty(photoURL)) {
             Picasso.get()
-                    .load(photoURL)
-                    .placeholder(R.drawable.card_placeholder)
+                    .load(R.drawable.card_placeholder)
                     .into(holder.card_image_view);
         } else {
             Picasso.get()
-                    .load(R.drawable.card_placeholder)
+                    .load(photoURL)
+                    .placeholder(R.drawable.card_placeholder)
                     .into(holder.card_image_view);
         }
     }

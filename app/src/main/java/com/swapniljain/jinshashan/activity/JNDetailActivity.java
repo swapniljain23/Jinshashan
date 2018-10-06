@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
+
+import org.w3c.dom.Text;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,16 +42,16 @@ public class JNDetailActivity extends AppCompatActivity {
 
             // Set the data.
             setTitle(mDataModel.dikshaInfo.dikshaName);
-            if (mDataModel.photoURL.isEmpty()) {
+            if (TextUtils.isEmpty(mDataModel.photoURL)) {
                 Picasso.get()
                         .load(R.drawable.card_placeholder)
                         .into(heroImageView);
             } else {
                 Picasso.get()
                         .load(mDataModel.photoURL)
+                        .placeholder(R.drawable.card_placeholder)
                         .into(heroImageView);
             }
-
         }
     }
 
