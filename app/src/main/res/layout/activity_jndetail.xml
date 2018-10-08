@@ -7,6 +7,432 @@
     android:layout_height="match_parent"
     tools:context=".activity.JNDetailActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--Title-->
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:text="@string/not_available"/>
+
+            <!--Sub title-->
+            <TextView
+                android:id="@+id/tv_detail_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                android:text="@string/not_available"/>
+
+            <!--Section header 1: Diksha information -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:text="@string/section_title_diksha_info"/>
+
+            <!--Data table 1-->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/diksha_date"/>
+
+                    <TextView
+                        android:id="@+id/tv_diksha_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/diksha_place"/>
+
+                    <TextView
+                        android:id="@+id/tv_diksha_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="Kota, Rajsthan"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/diksha_guru"/>
+
+                    <TextView
+                        android:id="@+id/tv_diksha_guru"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/remarks"/>
+
+                    <TextView
+                        android:id="@+id/tv_diksha_remarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+
+            <!--Section header 2: Personal information-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:text="@string/section_title_personal_info"/>
+
+            <!--Data table 2-->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/full_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_full_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/father_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_father_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/mother_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_mother_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/date_of_birth"/>
+
+                    <TextView
+                        android:id="@+id/tv_dob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/birth_place"/>
+
+                    <TextView
+                        android:id="@+id/tv_birth_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/remarks"/>
+
+                    <TextView
+                        android:id="@+id/tv_personal_remarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <!--Section header 3: Recent information-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:text="@string/section_title_recent_info"/>
+
+            <!--Data table 3-->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/address"/>
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/contact_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_contact_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/contact_phone_no"/>
+
+                    <TextView
+                        android:id="@+id/tv_contact_phoneno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/contact_email_id"/>
+
+                    <TextView
+                        android:id="@+id/tv_contact_emailid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/remarks"/>
+
+                    <TextView
+                        android:id="@+id/tv_recent_info_remarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="@dimen/detail_caption_width"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/last_update"/>
+
+                    <TextView
+                        android:id="@+id/tv_last_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:text="@string/not_available"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/appbar_height_with_hero_image">
@@ -15,11 +441,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="bottom"
+            app:expandedTitleGravity="top"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
             app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll">
 
             <ImageView
                 android:id="@+id/hero_image_view"

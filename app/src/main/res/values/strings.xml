@@ -13,6 +13,7 @@
     <!--Default text-->
     <string name="default_text">Default Text</string>
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
+    <string name="not_available">NA</string>
 
     <!-- Activity title text. -->
     <string name="title_activity_jndetail">Namo Loye Savv Sahunam</string>
@@ -21,4 +22,33 @@
     <string name="title_activity_jnlogin">Namo Loye Savv Sahunam</string>
     <string name="title_activity_jnlist">Namo Loye Savv Sahunam</string>
 
+    <!--Labels-->
+    
+    <!--Section titles-->
+    <string name="section_title_diksha_info">Diksha Info</string>
+    <string name="section_title_personal_info">Personal Info</string>
+    <string name="section_title_recent_info">Recent Info</string>
+
+    <!--Diksha info labels-->
+    <string name="diksha_date">Diksha Date</string>
+    <string name="diksha_place">Diksha Place</string>
+    <string name="diksha_guru">Diksha Guru</string>
+    
+    <!--Personal info labels-->
+    <string name="full_name">Full Name</string>
+    <string name="father_name">Father\'s Name</string>
+    <string name="mother_name">Mother\'s Name</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="birth_place">Birth Place</string>
+    
+    <!--Recent info labels-->
+    <string name="address">Address</string>
+    <string name="contact_name">Contact Name</string>
+    <string name="contact_phone_no">Contact Phone No</string>
+    <string name="contact_email_id">Contact Email ID</string>
+    <string name="last_update">Last Update</string>
+
+    <!--Common labels-->
+    <string name="remarks">Remarks</string>
+    
 </resources>
