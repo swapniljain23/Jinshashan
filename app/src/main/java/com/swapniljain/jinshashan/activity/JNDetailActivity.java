@@ -2,6 +2,7 @@ package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.TextUtils;
@@ -29,7 +30,8 @@ public class JNDetailActivity extends AppCompatActivity {
     // Data views.
     ImageView mHeroImageView;
     TextView mTitle;
-    TextView mSubtitle;
+    TextView mSubtitle1;
+    TextView mSubtitle2;
     TextView mDikshaDate;
     TextView mDikshaPlace;
     TextView mDikshaGuru;
@@ -60,7 +62,8 @@ public class JNDetailActivity extends AppCompatActivity {
 
         // Title subtitle.
         mTitle = findViewById(R.id.tv_detail_title);
-        mSubtitle = findViewById(R.id.tv_detail_subtitle);
+        mSubtitle1 = findViewById(R.id.tv_detail_subtitle1);
+        mSubtitle2 = findViewById(R.id.tv_detail_subtitle2);
 
         // Diksha info views.
         mDikshaDate = findViewById(R.id.tv_diksha_date);
@@ -109,7 +112,8 @@ public class JNDetailActivity extends AppCompatActivity {
 
         // Title, subtitle.
         mTitle.setText(mDataModel.dikshaInfo.dikshaName);
-        mSubtitle.setText(mDataModel.sect.sect1 + ", 60 years \n\nJabalpur MP");
+        mSubtitle1.setText(mDataModel.sect.sect1 + ", 60 years");
+        mSubtitle2.setText("Jabalpur, MP");
 
         // Diksha info.
         mDikshaDate.setText(mDataModel.dikshaInfo.dikshaDate);

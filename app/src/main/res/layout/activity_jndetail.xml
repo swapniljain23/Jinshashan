@@ -30,9 +30,19 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:text="@string/not_available"/>
 
-            <!--Sub title-->
+            <!--Sub titles-->
             <TextView
-                android:id="@+id/tv_detail_subtitle"
+                android:id="@+id/tv_detail_subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                android:text="@string/not_available"/>
+
+            <TextView
+                android:id="@+id/tv_detail_subtitle2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -257,6 +267,7 @@
                         android:id="@+id/tv_birth_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
                         android:layout_column="2"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
