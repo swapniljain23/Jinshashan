@@ -103,6 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="Kota, Rajsthan"/>
 
@@ -145,6 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -269,6 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -290,6 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -328,6 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -412,6 +417,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
