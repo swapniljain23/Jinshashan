@@ -70,7 +70,9 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
                 for (DataSnapshot snapshot: children) {
                     JNListDataModel dataModel = new JNListDataModel(snapshot);
                     Log.d(TAG,dataModel.toString());
-                    mDataModels.add(dataModel);
+                    if (dataModel.sect.sect1.equalsIgnoreCase(mSect)) {
+                        mDataModels.add(dataModel);
+                    }
                 }
                 populateUI();
             }
