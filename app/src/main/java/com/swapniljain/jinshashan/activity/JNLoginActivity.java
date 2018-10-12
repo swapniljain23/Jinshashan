@@ -1,7 +1,10 @@
 package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +18,8 @@ import java.util.List;
 
 public class JNLoginActivity extends AppCompatActivity {
 
-    public static String FIREBASE_USER_EXTRA = "firebase_user";
+    public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
+    public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
 
     private static int RC_SIGN_IN = 1001;
     private static String TAG = JNLoginActivity.class.toString();
@@ -47,19 +51,23 @@ public class JNLoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in.
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                startListActivity(user);
+                Log.d(TAG, "PhotoURL: " + user.getPhotoUrl());
+                startListActivity(user, user.getPhotoUrl());
             } else {
                 // Sign in failed.
+                Log.d(TAG, "Failed to login.");
             }
         } else {
             // Wrong request code. Do nothing.
+            Log.d(TAG, "Failed to login.");
         }
     }
 
     // Start list activity, must be called after authentication.
-    private void startListActivity(FirebaseUser user) {
+    private void startListActivity(FirebaseUser user, Uri userPhotoUrl) {
         Intent intent = new Intent(this, JNListActivity.class);
         intent.putExtra(FIREBASE_USER_EXTRA, user);
+        intent.putExtra(USER_PHOTO_URI_EXTRA, userPhotoUrl);
         startActivity(intent);
     }
 }

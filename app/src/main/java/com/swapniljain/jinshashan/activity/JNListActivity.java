@@ -1,6 +1,7 @@
 package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -56,26 +57,33 @@ public class JNListActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        TextView userName = headerView.findViewById(R.id.user_name_tv);
+        TextView userEmailId = headerView.findViewById(R.id.user_email_id_tv);
+        ImageView userImageView = headerView.findViewById(R.id.user_image_view);
+
         Intent intent = getIntent();
         if (intent.hasExtra(JNLoginActivity.FIREBASE_USER_EXTRA)) {
             FirebaseUser firebaseUser =
                     intent.getParcelableExtra(JNLoginActivity.FIREBASE_USER_EXTRA);
             if (firebaseUser == null) {
                 // Handle error here.
+                Log.d(TAG, "Failed to login.");
             } else {
                 // Set user info.
-                View headerView = navigationView.getHeaderView(0);
-                TextView userName = headerView.findViewById(R.id.user_name_tv);
-                TextView userEmailId = headerView.findViewById(R.id.user_email_id_tv);
-                ImageView userImageView = headerView.findViewById(R.id.user_image_view);
                 userName.setText(firebaseUser.getDisplayName());
                 userEmailId.setText(firebaseUser.getEmail());
-                Log.d(TAG, "Photo Url: " + firebaseUser.getPhotoUrl());
-                Picasso.get().load(firebaseUser.getPhotoUrl())
-                        .resize(getResources().getInteger(R.integer.user_image_width),
-                                getResources().getInteger(R.integer.user_image_height))
-                        .centerCrop().into(userImageView);
+                Log.d(TAG, "firebaseUser.getPhotoUrl()" + firebaseUser.getPhotoUrl());
             }
+        }
+        if (intent.hasExtra(JNLoginActivity.USER_PHOTO_URI_EXTRA)) {
+            Uri photoUri = intent.getParcelableExtra(JNLoginActivity.USER_PHOTO_URI_EXTRA);
+            Log.d(TAG, "USER_PHOTO_URI_EXTRA" + photoUri);
+            Picasso.get()
+                    .load(photoUri)
+                    .resize(getResources().getInteger(R.integer.user_image_width),
+                            getResources().getInteger(R.integer.user_image_height))
+                    .centerCrop().into(userImageView);
         }
 
         // Tab layout.

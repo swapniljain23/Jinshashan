@@ -13,4 +13,7 @@
     <!--Detail view-->
     <dimen name="detail_caption_width">160dp</dimen>
 
+    <!--Others-->
+    <dimen name="fab_elevation">6dp</dimen>
+
 </resources>

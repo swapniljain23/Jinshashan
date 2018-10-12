@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,12 +34,12 @@ import java.util.List;
  */
 public class JNListFragment extends Fragment implements JNListAdapter.CardViewClickListener {
 
-
     private RecyclerView mJNListRecyclerView;
     private List<JNListDataModel> mDataModels;
     private static String TAG = JNListFragment.class.toString();
     private Context mContext;
     private String mSect;
+    private ProgressBar mProgressBar;
 
     public JNListFragment() {
         // Required empty public constructor
@@ -54,6 +55,9 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         mSect = getArguments().getString(JNPagerAdapter.SECT);
         Log.d(TAG,"Sect: " + mSect);
 
+        mProgressBar = rootView.findViewById(R.id.progress_circular);
+        mProgressBar.setVisibility(View.VISIBLE);
+
         // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("data");
@@ -64,6 +68,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                mProgressBar.setVisibility(View.INVISIBLE);
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 mDataModels = new ArrayList<>();
@@ -80,6 +85,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
+                mProgressBar.setVisibility(View.INVISIBLE);
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
@@ -90,6 +96,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mJNListRecyclerView = view.findViewById(R.id.rv_jnlist);
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext());
