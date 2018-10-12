@@ -8,9 +8,11 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
@@ -59,6 +61,14 @@ public class JNDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        FloatingActionButton favoriteButton = findViewById(R.id.favorite_button);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"Favorite clicked!");
+            }
+        });
 
         // Hero image.
         mHeroImageView = findViewById(R.id.hero_image_view);

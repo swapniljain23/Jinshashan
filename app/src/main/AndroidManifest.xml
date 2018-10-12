@@ -23,17 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.JNSearchResultsActivity" />
+
         <activity
             android:name=".activity.JNDetailActivity"
             android:label="@string/title_activity_jndetail"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activity.JNListActivity"/>
+
         <activity
             android:name=".activity.JNFavoritesActivity"
             android:label="@string/title_activity_jnfavorites" />
+
         <activity
             android:name=".activity.JNTakeAVowActivity"
-            android:label="@string/title_activity_jntake_avow"></activity>
+            android:label="@string/title_activity_jntake_avow"/>
+
     </application>
 
 </manifest>

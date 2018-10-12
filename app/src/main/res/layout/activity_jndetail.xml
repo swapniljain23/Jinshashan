@@ -451,6 +451,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/appbar_height_with_hero_image">
 
@@ -484,5 +485,16 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite_border_white_24dp"
+        android:layout_gravity="top|right"
+        android:layout_margin="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
