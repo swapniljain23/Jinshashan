@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,12 +35,14 @@ import java.util.List;
  */
 public class JNListFragment extends Fragment implements JNListAdapter.CardViewClickListener {
 
-    private RecyclerView mJNListRecyclerView;
-    private List<JNListDataModel> mDataModels;
     private static String TAG = JNListFragment.class.toString();
-    private Context mContext;
+
+    private List<JNListDataModel> mDataModels;
     private String mSect;
+
+    private RecyclerView mJNListRecyclerView;
     private ProgressBar mProgressBar;
+    private TextView mNoDataFoundTextView;
 
     public JNListFragment() {
         // Required empty public constructor
@@ -57,6 +60,8 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
 
         mProgressBar = rootView.findViewById(R.id.progress_circular);
         mProgressBar.setVisibility(View.VISIBLE);
+
+        mNoDataFoundTextView = rootView.findViewById(R.id.tv_no_data_found);
 
         // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -79,6 +84,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
                         mDataModels.add(dataModel);
                     }
                 }
+
                 populateUI();
             }
 
@@ -122,6 +128,11 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
     // Private.
 
     public void populateUI() {
+        if(mDataModels.size() > 0) {
+            mNoDataFoundTextView.setVisibility(View.INVISIBLE);
+        } else {
+            mNoDataFoundTextView.setVisibility(View.VISIBLE);
+        }
         JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
         mJNListRecyclerView.setAdapter(listAdapter);
     }

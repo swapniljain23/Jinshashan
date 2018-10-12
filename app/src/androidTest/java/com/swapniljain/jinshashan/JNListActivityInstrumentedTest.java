@@ -8,6 +8,7 @@ import com.swapniljain.jinshashan.model.JNListDataModel;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -23,7 +24,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withChild;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.instanceOf;
@@ -71,7 +74,12 @@ public class JNListActivityInstrumentedTest {
 
     @Test
     public void testNavMenu() {
+        onView(withId(R.id.drawer_layout))
+                .check(matches(DrawerMatchers.isClosed()))
+                .perform(DrawerActions.open());
 
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_favorites));
     }
 
     @Test
