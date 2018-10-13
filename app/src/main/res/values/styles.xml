@@ -18,8 +18,9 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <!--Custom themes-->
-    <style name="ExpandedTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline4">
+    <style name="ExpandedTitleTextAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">0sp</item>
     </style>
 
     <style name="CollapsedTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline6">

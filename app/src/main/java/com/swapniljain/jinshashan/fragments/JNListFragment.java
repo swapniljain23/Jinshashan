@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -122,7 +124,13 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         Intent intent = new Intent(getContext(), JNDetailActivity.class);
         intent.putExtra(JNDetailActivity.LIST_MODEL_EXTRA,
                         mDataModels.get(clickedCardItemPosition));
-        startActivity(intent);
+
+        // Animation.
+        ImageView heroImageView = mJNListRecyclerView.findViewById(R.id.iv_card_image);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation
+                (getActivity(), heroImageView, "hero_image");
+
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     // Private.

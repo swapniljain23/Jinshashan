@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,10 +60,16 @@ public class JNDetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Setup close button.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
 
+        // Hide title.
+        // getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // Favorite button.
         FloatingActionButton favoriteButton = findViewById(R.id.favorite_button);
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +114,18 @@ public class JNDetailActivity extends AppCompatActivity {
             Log.d(TAG, mDataModel.toString());
 
             populateUI();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Log.d(TAG, "Close Clicked");
+                this.supportFinishAfterTransition();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
