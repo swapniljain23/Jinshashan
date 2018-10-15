@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -35,6 +37,9 @@ public class JNListActivity extends AppCompatActivity
 
     private static String TAG = JNListActivity.class.toString();
     private DrawerLayout mDrawer;
+
+    // The idling resource which will be null in production.
+    @Nullable private SimpleIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package com.swapniljain.jinshashan;
 
 import android.content.Context;
 
+import com.google.android.material.navigation.NavigationView;
 import com.swapniljain.jinshashan.activity.JNListActivity;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
@@ -48,18 +49,33 @@ public class JNListActivityInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
         assertEquals("com.swapniljain.jinshashan", appContext.getPackageName());
     }
 
     @Test
-    public void testViewDisplay() {
+    public void testHomeViewDisplay() {
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()));
         onView(withId(R.id.appbar)).check(matches(isDisplayed()));
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
         onView(withId(R.id.tabs)).check(matches(isDisplayed()));
         onView(withId(R.id.view_pager)).check(matches(isDisplayed()));
     }
+
+    // Home view material card tests.
+    @Test
+    public void testMaterialCard() {
+
+    }
+
+    // Open nav drawer.
+
+    public void openDrawer() {
+        onView(withId(R.id.drawer_layout))
+                .check(matches(DrawerMatchers.isClosed()))
+                .perform(DrawerActions.open());
+    }
+
+    // Nav header tests.
 
     @Test
     public void testNavHeaderLayout() {
@@ -72,18 +88,45 @@ public class JNListActivityInstrumentedTest {
         onView(withId(R.id.user_image_view)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void testNavMenu() {
-        onView(withId(R.id.drawer_layout))
-                .check(matches(DrawerMatchers.isClosed()))
-                .perform(DrawerActions.open());
+    // Nav menu tests.
 
+    @Test
+    public void testNavMenuHome() {
+        openDrawer();
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_home));
+    }
+
+    @Test
+    public void testNavMenuFavorites() {
+        openDrawer();
         onView(withId(R.id.nav_view))
                 .perform(NavigationViewActions.navigateTo(R.id.nav_favorites));
     }
 
     @Test
-    public void testMaterialCard() {
-
+    public void testNavMenuVow() {
+        openDrawer();
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_vow));
     }
+    @Test
+    public void testNavMenuSignout() {
+        openDrawer();
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_sign_out));
+    }
+    @Test
+    public void testNavMenuShare() {
+        openDrawer();
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_share));
+    }
+    @Test
+    public void testNavMenuSendFeedback() {
+        openDrawer();
+        onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_send_feedback));
+    }
+
 }

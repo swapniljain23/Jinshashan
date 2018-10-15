@@ -8,7 +8,7 @@
 
     <!--App bar margins-->
     <dimen name="appbar_height_with_tab_bar">108dp</dimen>
-    <dimen name="appbar_height_with_hero_image">240dp</dimen>
+    <dimen name="appbar_height_with_hero_image">320dp</dimen>
 
     <!--Detail view-->
     <dimen name="detail_caption_width">160dp</dimen>
