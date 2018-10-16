@@ -18,9 +18,6 @@ import java.util.List;
 
 public class JNLoginActivity extends AppCompatActivity {
 
-    public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
-    public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
-
     private static int RC_SIGN_IN = 1001;
     private static String TAG = JNLoginActivity.class.toString();
 
@@ -66,8 +63,8 @@ public class JNLoginActivity extends AppCompatActivity {
     // Start list activity, must be called after authentication.
     private void startListActivity(FirebaseUser user, Uri userPhotoUrl) {
         Intent intent = new Intent(this, JNListActivity.class);
-        intent.putExtra(FIREBASE_USER_EXTRA, user);
-        intent.putExtra(USER_PHOTO_URI_EXTRA, userPhotoUrl);
+        intent.putExtra(JNListActivity.FIREBASE_USER_EXTRA, user);
+        intent.putExtra(JNListActivity.USER_PHOTO_URI_EXTRA, userPhotoUrl);
         startActivity(intent);
     }
 }

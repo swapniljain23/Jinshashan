@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -32,11 +34,23 @@ import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
+import java.net.URI;
+
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
+    public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
+
     private static String TAG = JNListActivity.class.toString();
+
     private DrawerLayout mDrawer;
+    private FirebaseUser mFirebaseUser;
+    private Uri mUserPhotoURI;
+
+    private TextView mUserName;
+    private TextView mUserEmailID;
+    private ImageView mUserImageView;
 
     // The idling resource which will be null in production.
     @Nullable private SimpleIdlingResource mIdlingResource;
@@ -63,33 +77,24 @@ public class JNListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        TextView userName = headerView.findViewById(R.id.user_name_tv);
-        TextView userEmailId = headerView.findViewById(R.id.user_email_id_tv);
-        ImageView userImageView = headerView.findViewById(R.id.user_image_view);
+        mUserName = headerView.findViewById(R.id.user_name_tv);
+        mUserEmailID = headerView.findViewById(R.id.user_email_id_tv);
+        mUserImageView = headerView.findViewById(R.id.user_image_view);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra(JNLoginActivity.FIREBASE_USER_EXTRA)) {
-            FirebaseUser firebaseUser =
-                    intent.getParcelableExtra(JNLoginActivity.FIREBASE_USER_EXTRA);
-            if (firebaseUser == null) {
-                // Handle error here.
-                Log.d(TAG, "Failed to login.");
-            } else {
-                // Set user info.
-                userName.setText(firebaseUser.getDisplayName());
-                userEmailId.setText(firebaseUser.getEmail());
-                Log.d(TAG, "firebaseUser.getPhotoUrl()" + firebaseUser.getPhotoUrl());
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            if (intent.hasExtra(FIREBASE_USER_EXTRA)) {
+                mFirebaseUser = intent.getParcelableExtra(FIREBASE_USER_EXTRA);
             }
+            if (intent.hasExtra(USER_PHOTO_URI_EXTRA)) {
+                mUserPhotoURI = intent.getParcelableExtra(USER_PHOTO_URI_EXTRA);
+            }
+        } else {
+            mFirebaseUser = savedInstanceState.getParcelable(FIREBASE_USER_EXTRA);
+            mUserPhotoURI = savedInstanceState.getParcelable(USER_PHOTO_URI_EXTRA);
         }
-        if (intent.hasExtra(JNLoginActivity.USER_PHOTO_URI_EXTRA)) {
-            Uri photoUri = intent.getParcelableExtra(JNLoginActivity.USER_PHOTO_URI_EXTRA);
-            Log.d(TAG, "USER_PHOTO_URI_EXTRA" + photoUri);
-            Picasso.get()
-                    .load(photoUri)
-                    .resize(getResources().getInteger(R.integer.user_image_width),
-                            getResources().getInteger(R.integer.user_image_height))
-                    .centerCrop().into(userImageView);
-        }
+
+        populateUserInfo();
 
         // Tab layout.
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -97,6 +102,13 @@ public class JNListActivity extends AppCompatActivity
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(FIREBASE_USER_EXTRA, mFirebaseUser);
+        outState.putParcelable(USER_PHOTO_URI_EXTRA, mUserPhotoURI);
     }
 
     @Override
@@ -189,5 +201,24 @@ public class JNListActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
+    }
+
+    private void populateUserInfo() {
+        if (mFirebaseUser == null) {
+            // Handle error here.
+            Log.d(TAG, "Failed to login.");
+        } else {
+            // Set user info.
+            mUserName.setText(mFirebaseUser.getDisplayName());
+            mUserEmailID.setText(mFirebaseUser.getEmail());
+            Log.d(TAG, "firebaseUser.getPhotoUrl()" + mFirebaseUser.getPhotoUrl());
+        }
+
+        Log.d(TAG, "USER_PHOTO_URI_EXTRA" + mUserPhotoURI);
+        Picasso.get()
+                .load(mUserPhotoURI)
+                .resize(getResources().getInteger(R.integer.user_image_width),
+                        getResources().getInteger(R.integer.user_image_height))
+                .centerCrop().into(mUserImageView);
     }
 }
