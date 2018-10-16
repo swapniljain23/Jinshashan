@@ -8,7 +8,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.view.GravityCompat;
+import androidx.test.espresso.IdlingResource;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -29,12 +31,20 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import com.swapniljain.jinshashan.R;
+import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,8 +62,19 @@ public class JNListActivity extends AppCompatActivity
     private TextView mUserEmailID;
     private ImageView mUserImageView;
 
+    private List<JNListDataModel> mDataModels;
+
     // The idling resource which will be null in production.
     @Nullable private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if(mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +115,10 @@ public class JNListActivity extends AppCompatActivity
             mUserPhotoURI = savedInstanceState.getParcelable(USER_PHOTO_URI_EXTRA);
         }
 
+        // Set user info.
         populateUserInfo();
 
-        // Tab layout.
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        JNPagerAdapter pagerAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        fetchData();
     }
 
     @Override
@@ -220,5 +237,60 @@ public class JNListActivity extends AppCompatActivity
                 .resize(getResources().getInteger(R.integer.user_image_width),
                         getResources().getInteger(R.integer.user_image_height))
                 .centerCrop().into(mUserImageView);
+    }
+
+    private void populateTabs() {
+        // Tab layout.
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        JNPagerAdapter pagerAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
+        pagerAdapter.setmDataModel(mDataModels);
+        viewPager.setAdapter(pagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void fetchData() {
+        // Firebase connection.
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("data");
+
+        if(mIdlingResource != null) {
+            mIdlingResource.setIdleState(false);
+        }
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                //mProgressBar.setVisibility(View.INVISIBLE);
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                mDataModels = new ArrayList<>();
+                for (DataSnapshot snapshot: children) {
+                    JNListDataModel dataModel = new JNListDataModel(snapshot);
+                    Log.d(TAG,dataModel.toString());
+                    mDataModels.add(dataModel);
+                }
+
+                populateTabs();
+
+                if(mIdlingResource != null) {
+                    mIdlingResource.setIdleState(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                // mProgressBar.setVisibility(View.INVISIBLE);
+                Log.w(TAG, "Failed to read value.", error.toException());
+                if(mIdlingResource != null) {
+                    mIdlingResource.setIdleState(true);
+                }
+            }
+        });
     }
 }

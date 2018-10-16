@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.google.android.material.navigation.NavigationView;
 import com.swapniljain.jinshashan.activity.JNListActivity;
+import com.swapniljain.jinshashan.activity.SimpleIdlingResource;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
 import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.NavigationViewActions;
@@ -14,6 +16,8 @@ import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +49,22 @@ public class JNListActivityInstrumentedTest {
 
     @Rule public ActivityTestRule<JNListActivity> mListActivityRule =
             new ActivityTestRule<>(JNListActivity.class);
+
+    private SimpleIdlingResource mIdlingResource;
+
+    @Before
+    public void registerIdlingResource() {
+        //mIdlingResource = mListActivityRule.getActivity().
+        Espresso.registerIdlingResources(mIdlingResource);
+    }
+
+    @After
+    public void unregisterIdlingResource() {
+        if (mIdlingResource != null) {
+            Espresso.unregisterIdlingResources(mIdlingResource);
+        }
+    }
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
