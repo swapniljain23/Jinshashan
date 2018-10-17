@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +53,7 @@ public class JNListActivity extends AppCompatActivity
 
     public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
     public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
+    public static String DATA_MODEL = "data_model";
 
     private static String TAG = JNListActivity.class.toString();
 
@@ -116,23 +118,27 @@ public class JNListActivity extends AppCompatActivity
             if (intent.hasExtra(USER_PHOTO_URI_EXTRA)) {
                 mUserPhotoURI = intent.getParcelableExtra(USER_PHOTO_URI_EXTRA);
             }
+
+            // Start firebase connection and fetch data.
+            fetchData();
+
         } else {
             mFirebaseUser = savedInstanceState.getParcelable(FIREBASE_USER_EXTRA);
             mUserPhotoURI = savedInstanceState.getParcelable(USER_PHOTO_URI_EXTRA);
+            mDataModels = savedInstanceState.getParcelableArrayList(DATA_MODEL);
+            populateTabs();
         }
 
         // Set user info.
         populateUserInfo();
-
-        // Start firebase connection and fetch data.
-        fetchData();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putParcelable(FIREBASE_USER_EXTRA, mFirebaseUser);
         outState.putParcelable(USER_PHOTO_URI_EXTRA, mUserPhotoURI);
+        outState.putParcelableArrayList(DATA_MODEL, (ArrayList<? extends Parcelable>) mDataModels);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

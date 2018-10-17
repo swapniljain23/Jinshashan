@@ -9,6 +9,7 @@ import com.swapniljain.jinshashan.model.JNListDataModel;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.NavigationViewActions;
@@ -50,11 +51,11 @@ public class JNListActivityInstrumentedTest {
     @Rule public ActivityTestRule<JNListActivity> mListActivityRule =
             new ActivityTestRule<>(JNListActivity.class);
 
-    private SimpleIdlingResource mIdlingResource;
+    private IdlingResource mIdlingResource;
 
     @Before
     public void registerIdlingResource() {
-        //mIdlingResource = mListActivityRule.getActivity().
+        mIdlingResource = mListActivityRule.getActivity().getIdlingResource();
         Espresso.registerIdlingResources(mIdlingResource);
     }
 

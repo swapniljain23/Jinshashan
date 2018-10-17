@@ -14,7 +14,8 @@
     <string name="default_text">Default Text</string>
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
     <string name="not_available">NA</string>
-    <string name="no_data_found">No data found! Please try again later.</string>
+    <string name="no_data_found">No data found. Please try again later.</string>
+    <string name="database_error">Sorry, could not fetch the data. Please try again later.</string>
 
     <!-- Activity title text. -->
     <string name="title_activity_jndetail">Namo Loye Savv Sahunam</string>

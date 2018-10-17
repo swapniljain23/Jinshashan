@@ -15,16 +15,19 @@ import com.swapniljain.jinshashan.model.JNListDataModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JNPagerAdapter extends FragmentPagerAdapter {
 
+    // Public members.
+    public static String SECT = "sect";
+    public static String DATA_MODEL = "data_model";
+    public List<JNListDataModel> mDataModel;
+
+    // Private members.
     private Context mContext;
     private List<String> mSectList =
             Arrays.asList("Digambar", "Shwetambar", "Terapanthi", "Sthanakvasi");
-
-    public List<JNListDataModel> mDataModel;
-    public static String SECT = "sect";
-    public static String DATA_MODEL = "data_model";
 
     public JNPagerAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -35,7 +38,18 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         Bundle arguments = new Bundle();
         arguments.putString(SECT, mSectList.get(i));
-        arguments.putParcelableArrayList(DATA_MODEL, (ArrayList<? extends Parcelable>) mDataModel);
+
+        // Filter list.
+        List<JNListDataModel> filteredList = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+             filteredList = mDataModel.
+                    stream().
+                    filter(list -> mSectList.get(i).equalsIgnoreCase(list.sect.sect1)).
+                    collect(Collectors.toList());
+        }
+        arguments.putParcelableArrayList(DATA_MODEL,
+                (ArrayList<? extends Parcelable>) filteredList);
+
         Fragment fragment = new JNListFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -53,6 +67,7 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
     }
 
     // Setters, getters.
+
     public List<JNListDataModel> getmDataModel() {
         return mDataModel;
     }
