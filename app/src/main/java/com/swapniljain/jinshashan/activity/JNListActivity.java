@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,12 +56,14 @@ public class JNListActivity extends AppCompatActivity
     private static String TAG = JNListActivity.class.toString();
 
     private DrawerLayout mDrawer;
-    private FirebaseUser mFirebaseUser;
-    private Uri mUserPhotoURI;
-
     private TextView mUserName;
     private TextView mUserEmailID;
     private ImageView mUserImageView;
+    private ProgressBar mProgressBar;
+    private TextView mDatabaseError;
+
+    private FirebaseUser mFirebaseUser;
+    private Uri mUserPhotoURI;
 
     private List<JNListDataModel> mDataModels;
 
@@ -83,6 +86,9 @@ public class JNListActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mProgressBar = findViewById(R.id.progress_circular);
+        mDatabaseError = findViewById(R.id.tv_database_error);
 
         mDrawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -118,6 +124,7 @@ public class JNListActivity extends AppCompatActivity
         // Set user info.
         populateUserInfo();
 
+        // Start firebase connection and fetch data.
         fetchData();
     }
 
@@ -232,11 +239,13 @@ public class JNListActivity extends AppCompatActivity
         }
 
         Log.d(TAG, "USER_PHOTO_URI_EXTRA" + mUserPhotoURI);
-        Picasso.get()
-                .load(mUserPhotoURI)
-                .resize(getResources().getInteger(R.integer.user_image_width),
-                        getResources().getInteger(R.integer.user_image_height))
-                .centerCrop().into(mUserImageView);
+        if(mUserPhotoURI != null) {
+            Picasso.get()
+                    .load(mUserPhotoURI)
+                    .resize(getResources().getInteger(R.integer.user_image_width),
+                            getResources().getInteger(R.integer.user_image_height))
+                    .centerCrop().into(mUserImageView);
+        }
     }
 
     private void populateTabs() {
@@ -254,9 +263,13 @@ public class JNListActivity extends AppCompatActivity
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("data");
 
+        // Only for testing.
         if(mIdlingResource != null) {
             mIdlingResource.setIdleState(false);
         }
+
+        // Start progress bar.
+        mProgressBar.setVisibility(View.VISIBLE);
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -275,8 +288,16 @@ public class JNListActivity extends AppCompatActivity
                     mDataModels.add(dataModel);
                 }
 
+                // Hide error string, if any.
+                mDatabaseError.setVisibility(View.INVISIBLE);
+
+                // Stop progress bar.
+                mProgressBar.setVisibility(View.INVISIBLE);
+
+                // Refresh ui.
                 populateTabs();
 
+                // Only for testing.
                 if(mIdlingResource != null) {
                     mIdlingResource.setIdleState(true);
                 }
@@ -287,6 +308,14 @@ public class JNListActivity extends AppCompatActivity
                 // Failed to read value
                 // mProgressBar.setVisibility(View.INVISIBLE);
                 Log.w(TAG, "Failed to read value.", error.toException());
+
+                // Show an error.
+                mDatabaseError.setVisibility(View.VISIBLE);
+
+                // Stop progress bar.
+                mProgressBar.setVisibility(View.INVISIBLE);
+
+                // Only for testing.
                 if(mIdlingResource != null) {
                     mIdlingResource.setIdleState(true);
                 }
