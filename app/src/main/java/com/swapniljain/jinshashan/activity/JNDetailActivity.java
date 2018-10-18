@@ -120,7 +120,7 @@ public class JNDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
+            case android.R.id.home:
                 Log.d(TAG, "Close Clicked");
                 this.supportFinishAfterTransition();
                 return true;

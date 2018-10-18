@@ -9,11 +9,14 @@ import com.swapniljain.jinshashan.model.JNListDataModel;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.NavigationViewActions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -28,7 +31,9 @@ import java.util.Map;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withChild;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -56,13 +61,13 @@ public class JNListActivityInstrumentedTest {
     @Before
     public void registerIdlingResource() {
         mIdlingResource = mListActivityRule.getActivity().getIdlingResource();
-        Espresso.registerIdlingResources(mIdlingResource);
+        IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
     @After
     public void unregisterIdlingResource() {
         if (mIdlingResource != null) {
-            Espresso.unregisterIdlingResources(mIdlingResource);
+            IdlingRegistry.getInstance().unregister(mIdlingResource);
         }
     }
 
@@ -85,7 +90,25 @@ public class JNListActivityInstrumentedTest {
     // Home view material card tests.
     @Test
     public void testMaterialCard() {
+        onView(withId(R.id.view_pager)).perform(click());
 
+        onView(ViewMatchers.withId(R.id.rv_jnlist))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.tv_card_title))
+                .check(matches(hasDescendant(withText("Acharya Vidyasagar"))));
+
+        onView(ViewMatchers.withId(R.id.tv_card_subtitle))
+                .check(matches(hasDescendant(withText("Dikshit since: 30/06/1968"))));
+
+        onView(ViewMatchers.withId(R.id.rv_jnlist))
+                .perform(RecyclerViewActions.scrollToPosition(1));
+
+        onView(ViewMatchers.withId(R.id.tv_card_title))
+                .check(matches(hasDescendant(withText("Muni Tarun Sagar"))));
+
+        onView(ViewMatchers.withId(R.id.tv_card_subtitle))
+                .check(matches(hasDescendant(withText("Dikshit since: 20/07/1988"))));
     }
 
     // Open nav drawer.
@@ -149,5 +172,7 @@ public class JNListActivityInstrumentedTest {
         onView(withId(R.id.nav_view))
                 .perform(NavigationViewActions.navigateTo(R.id.nav_send_feedback));
     }
+
+    // Private
 
 }

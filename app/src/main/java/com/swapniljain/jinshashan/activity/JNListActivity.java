@@ -135,10 +135,10 @@ public class JNListActivity extends AppCompatActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putParcelable(FIREBASE_USER_EXTRA, mFirebaseUser);
         outState.putParcelable(USER_PHOTO_URI_EXTRA, mUserPhotoURI);
         outState.putParcelableArrayList(DATA_MODEL, (ArrayList<? extends Parcelable>) mDataModels);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
