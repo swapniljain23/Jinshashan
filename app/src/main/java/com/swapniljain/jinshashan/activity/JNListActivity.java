@@ -19,7 +19,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -44,7 +43,6 @@ import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -284,7 +282,6 @@ public class JNListActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                //mProgressBar.setVisibility(View.INVISIBLE);
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 mDataModels = new ArrayList<>();

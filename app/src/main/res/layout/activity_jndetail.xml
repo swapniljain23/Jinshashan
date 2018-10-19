@@ -140,7 +140,7 @@
                         android:layout_column="2"
                         android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:text="Kota, Rajsthan"/>
+                        android:text="@string/not_available"/>
 
                 </TableRow>
 

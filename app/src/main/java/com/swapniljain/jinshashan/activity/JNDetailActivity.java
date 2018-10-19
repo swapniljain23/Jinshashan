@@ -116,8 +116,10 @@ public class JNDetailActivity extends AppCompatActivity {
             mDataModel = savedInstanceState.getParcelable(LIST_MODEL_EXTRA);
         }
 
-        Log.d(TAG, mDataModel.toString());
-        populateUI();
+        if (mDataModel != null) {
+            Log.d(TAG, mDataModel.toString());
+            populateUI();
+        }
     }
 
     @Override

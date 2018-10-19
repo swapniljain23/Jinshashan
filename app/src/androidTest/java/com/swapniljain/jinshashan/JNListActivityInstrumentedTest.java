@@ -2,21 +2,14 @@ package com.swapniljain.jinshashan;
 
 import android.content.Context;
 
-import com.google.android.material.navigation.NavigationView;
 import com.swapniljain.jinshashan.activity.JNListActivity;
-import com.swapniljain.jinshashan.activity.SimpleIdlingResource;
-import com.swapniljain.jinshashan.model.JNListDataModel;
 
 import androidx.test.InstrumentationRegistry;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.NavigationViewActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -26,23 +19,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
-
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withChild;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 
 /**
