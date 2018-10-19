@@ -5,6 +5,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -111,10 +112,12 @@ public class JNDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(LIST_MODEL_EXTRA)) {
             mDataModel = intent.getParcelableExtra(LIST_MODEL_EXTRA);
-            Log.d(TAG, mDataModel.toString());
-
-            populateUI();
+        } else if (savedInstanceState != null) {
+            mDataModel = savedInstanceState.getParcelable(LIST_MODEL_EXTRA);
         }
+
+        Log.d(TAG, mDataModel.toString());
+        populateUI();
     }
 
     @Override
@@ -128,6 +131,14 @@ public class JNDetailActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable(LIST_MODEL_EXTRA, mDataModel);
+    }
+
+    // Private methods.
 
     public void populateUI() {
         // Set image.
