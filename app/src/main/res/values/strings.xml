@@ -25,7 +25,7 @@
     <string name="title_activity_jnlist">Namo Loye Savv Sahunam</string>
 
     <!--Labels-->
-    
+
     <!--Section titles-->
     <string name="section_title_diksha_info">Diksha Info</string>
     <string name="section_title_personal_info">Personal Info</string>
@@ -35,14 +35,14 @@
     <string name="diksha_date">Diksha Date</string>
     <string name="diksha_place">Diksha Place</string>
     <string name="diksha_guru">Diksha Guru</string>
-    
+
     <!--Personal info labels-->
     <string name="full_name">Full Name</string>
     <string name="father_name">Father\'s Name</string>
     <string name="mother_name">Mother\'s Name</string>
     <string name="date_of_birth">Date Of Birth</string>
     <string name="birth_place">Birth Place</string>
-    
+
     <!--Recent info labels-->
     <string name="address">Address</string>
     <string name="contact_name">Contact Name</string>
@@ -52,5 +52,7 @@
 
     <!--Common labels-->
     <string name="remarks">Remarks</string>
-    
+    <string name="appwidget_text">JINSHASHAN</string>
+    <string name="add_widget">Add widget</string>
+
 </resources>

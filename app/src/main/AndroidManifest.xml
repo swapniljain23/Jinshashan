@@ -23,23 +23,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.JNSearchResultsActivity" />
-
         <activity
             android:name=".activity.JNDetailActivity"
             android:label="@string/title_activity_jndetail"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activity.JNListActivity"/>
-
+            android:parentActivityName=".activity.JNListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.JNFavoritesActivity"
             android:label="@string/title_activity_jnfavorites" />
-
         <activity
             android:name=".activity.JNTakeAVowActivity"
-            android:label="@string/title_activity_jntake_avow"/>
+            android:label="@string/title_activity_jntake_avow" />
 
+        <receiver android:name=".JNAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/jnapp_widget_provider_info" />
+        </receiver>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.swapniljain.jinshashan.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -52,7 +54,10 @@ public class JNListActivity extends AppCompatActivity
     public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
     public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
     public static String DATA_MODEL = "data_model";
-
+    public static String PREFERENCE_NAME = "list_activity_preference";
+    public static String WIDGET_TITLE = "widget_title";
+    public static String WIDGET_SUBTITLE = "widget_subtitle";
+    public static String WIDGET_HERO_IMAGE_URL = "widget_hero_image_url";
     private static String TAG = JNListActivity.class.toString();
 
     private DrawerLayout mDrawer;
@@ -300,6 +305,12 @@ public class JNListActivity extends AppCompatActivity
                 // Refresh ui.
                 populateTabs();
 
+                // Save first object (if exist) in shared preference so it can be used to display
+                // in widgets.
+                if (mDataModels.size() > 0) {
+                    writeToSharedPreference(mDataModels.get(0));
+                }
+
                 // Only for testing.
                 if(mIdlingResource != null) {
                     mIdlingResource.setIdleState(true);
@@ -324,5 +335,17 @@ public class JNListActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    public void writeToSharedPreference(JNListDataModel dataModel) {
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(WIDGET_TITLE, dataModel.dikshaInfo.dikshaName);
+        editor.putString(WIDGET_SUBTITLE, dataModel.sect.sect1 + ", 60 Years, Jabalpur MP");
+        editor.putString(WIDGET_HERO_IMAGE_URL, dataModel.photoURL);
+
+        editor.commit();
     }
 }
