@@ -59,8 +59,8 @@
                 android:id="@+id/tv_detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
@@ -71,8 +71,8 @@
                 android:id="@+id/tv_detail_subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
                 android:text="@string/not_available"/>
@@ -81,8 +81,8 @@
                 android:id="@+id/tv_detail_subtitle2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
                 android:text="@string/not_available"/>
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/section_title_diksha_info"/>
 
@@ -196,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/section_title_personal_info"/>
 
@@ -305,7 +305,7 @@
                         android:id="@+id/tv_birth_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_column="2"
                         android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
@@ -342,7 +342,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/section_title_recent_info"/>
 
@@ -492,10 +492,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_favorite_border_white_24dp"
         android:layout_margin="16dp"
-        android:contentDescription="@string/favorite_button_content_desc"
+        android:elevation="@dimen/fab_elevation"
         app:fabSize="mini"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
+        app:pressedTranslationZ="12dp"
         style="@style/Widget.MaterialComponents.FloatingActionButton"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

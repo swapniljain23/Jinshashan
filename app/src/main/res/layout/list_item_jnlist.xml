@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:padding="8dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/hero_image_content_desc"/>
 
             <TextView
                 android:id="@+id/tv_card_title"

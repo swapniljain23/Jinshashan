@@ -55,4 +55,15 @@
     <string name="appwidget_text">JINSHASHAN</string>
     <string name="add_widget">Add widget</string>
 
+    <!--Accessibility text-->
+    <string name="hero_image_content_desc">Hero image</string>
+    <string name="favorite_button_content_desc">Favorite</string>
+    <string name="nav_home_title">Home</string>
+    <string name="nav_favorites_title">Favorites</string>
+    <string name="nav_take_a_vow_title">Take a vow</string>
+    <string name="nav_sign_out_title">Sign out</string>
+    <string name="nav_communicate_title">Communicate</string>
+    <string name="nav_share_title">Share</string>
+    <string name="nav_send_feedback_title">Send feedback</string>
+
 </resources>
