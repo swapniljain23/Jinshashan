@@ -3,7 +3,25 @@ apply plugin: 'com.android.application'
 // Add for Firebase.
 apply plugin: 'com.google.gms.google-services'
 
+// Create a variable called keystorePropertiesFile, and initialize it with
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.swapniljain.jinshashan"
@@ -17,6 +35,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
@@ -26,37 +45,29 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.guava:guava:26.0-android'
-
     testImplementation 'junit:junit:4.12'
-
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-beta02'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
-
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
-
     androidTestImplementation 'androidx.test:runner:1.0.0'
-    
     //implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0-beta02'
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
-
     // Picasso.
     implementation 'com.squareup.picasso:picasso:2.71828'
-
     // Firebase dependencies.
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-
     // Google material design.
     implementation 'com.google.android.material:material:1.0.0'
 }
