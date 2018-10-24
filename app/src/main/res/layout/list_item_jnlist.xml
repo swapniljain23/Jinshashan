@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="300dp"
-        app:cardElevation="@dimen/mtrl_card_elevation"
+        app:cardElevation="@dimen/material_card_elevation"
         app:cardCornerRadius="4dp">
 
         <LinearLayout
@@ -50,7 +50,7 @@
 
     <androidx.legacy.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mtrl_card_spacing"/>
+        android:layout_height="@dimen/material_card_spacing"/>
 
     </LinearLayout>
 

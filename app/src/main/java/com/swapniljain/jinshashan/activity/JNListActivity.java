@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -338,14 +339,20 @@ public class JNListActivity extends AppCompatActivity
     }
 
     public void writeToSharedPreference(JNListDataModel dataModel) {
-        SharedPreferences sharedPreferences =
-                getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(WIDGET_TITLE, dataModel.dikshaInfo.dikshaName);
-        editor.putString(WIDGET_SUBTITLE, dataModel.sect.sect1 + ", 60 Years, Jabalpur MP");
-        editor.putString(WIDGET_HERO_IMAGE_URL, dataModel.photoURL);
+                editor.putString(WIDGET_TITLE, dataModel.dikshaInfo.dikshaName);
+                editor.putString(WIDGET_SUBTITLE, dataModel.sect.sect1 + ", 60 Years, Jabalpur MP");
+                editor.putString(WIDGET_HERO_IMAGE_URL, dataModel.photoURL);
 
-        editor.commit();
+                editor.apply();
+                return null;
+            }
+        }.execute();
     }
 }
