@@ -49,7 +49,12 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
 
         // Set the data.
         holder.card_title.setText(dataModel.dikshaInfo.dikshaName);
-        holder.card_subtitle.setText("Dikshit since: " + dataModel.dikshaInfo.dikshaDate);
+        holder.card_subtitle_1.setText(String.format("%s, %d Years",
+                dataModel.sect.sect1,
+                JNUtils.calculateAge(dataModel.personalInfo.dateOfBirth)));
+        holder.card_subtitle_2.setText(String.format("%s, %s",
+                dataModel.recentInfo.city,
+                dataModel.recentInfo.state));
         String photoURL = dataModel.getPhotoURL();
         if (TextUtils.isEmpty(photoURL)) {
             Picasso.get()
@@ -77,14 +82,16 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
     class JNListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView card_title;
-        private TextView card_subtitle;
+        private TextView card_subtitle_1;
+        private TextView card_subtitle_2;
         private ImageView card_image_view;
 
         public JNListViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
             card_title = view.findViewById(R.id.tv_card_title);
-            card_subtitle = view.findViewById(R.id.tv_card_subtitle);
+            card_subtitle_1 = view.findViewById(R.id.tv_card_subtitle1);
+            card_subtitle_2 = view.findViewById(R.id.tv_card_subtitle2);
             card_image_view = view.findViewById(R.id.iv_card_image);
         }
 

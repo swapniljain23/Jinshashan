@@ -34,15 +34,29 @@
                 android:id="@+id/tv_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                style="@style/TextAppearance.MaterialComponents.Headline5"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <TextView
-                android:id="@+id/tv_card_subtitle"
+                android:id="@+id/tv_card_subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                style="@style/TextAppearance.MaterialComponents.Overline"/>
+
+            <TextView
+                android:id="@+id/tv_card_subtitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                style="@style/TextAppearance.MaterialComponents.Overline"/>
 
         </LinearLayout>
 

@@ -19,8 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
+import com.swapniljain.jinshashan.utils.JNUtils;
 
 import org.w3c.dom.Text;
+
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -158,13 +161,19 @@ public class JNDetailActivity extends AppCompatActivity {
 
         // Title, subtitle.
         mTitle.setText(mDataModel.dikshaInfo.dikshaName);
-        mSubtitle1.setText(mDataModel.sect.sect1 + ", 60 years");
-        mSubtitle2.setText("Jabalpur, MP");
+        mSubtitle1.setText(String.format(Locale.getDefault(),
+                "%s, %d Years",
+                mDataModel.sect.sect1,
+                JNUtils.calculateAge(mDataModel.personalInfo.dateOfBirth)));
+        mSubtitle2.setText(String.format("%s, %s",
+                mDataModel.recentInfo.city,
+                mDataModel.recentInfo.state));
 
         // Diksha info.
         mDikshaDate.setText(mDataModel.dikshaInfo.dikshaDate);
-        mDikshaPlace.setText(mDataModel.dikshaInfo.dikshaCity + ", " +
-                mDataModel.dikshaInfo.dikshaState);
+        mDikshaPlace.setText(String.format("%s, %s",
+                mDataModel.dikshaInfo.dikshaCity,
+                mDataModel.dikshaInfo.dikshaState));
         mDikshaGuru.setText(mDataModel.dikshaInfo.dikshaGuru);
         mDikshaRemarks.setText(mDataModel.dikshaInfo.remarks);
 
@@ -173,14 +182,16 @@ public class JNDetailActivity extends AppCompatActivity {
         mFatherName.setText(mDataModel.personalInfo.fatherNmae);
         mMotherName.setText(mDataModel.personalInfo.motherName);
         mDateOfBirth.setText(mDataModel.personalInfo.dateOfBirth);
-        mBirthPlace.setText(mDataModel.personalInfo.birthCity + ", " +
-                mDataModel.personalInfo.birthState);
+        mBirthPlace.setText(String.format("%s, %s",
+                mDataModel.personalInfo.birthCity,
+                mDataModel.personalInfo.birthState));
         mPersonalRemarks.setText(mDataModel.personalInfo.remarks);
 
         // Recent info.
-        mRecentAddress.setText(mDataModel.recentInfo.address + "\n" +
-                mDataModel.recentInfo.city + ", " +
-                mDataModel.recentInfo.state);
+        mRecentAddress.setText(String.format("%s \n %s, %s",
+                mDataModel.recentInfo.address,
+                mDataModel.recentInfo.city,
+                mDataModel.recentInfo.state));
         mContactName.setText(mDataModel.recentInfo.contactName);
         mContactPhoneNo.setText(mDataModel.recentInfo.contactPhoneNo);
         mContactEmailID.setText(mDataModel.recentInfo.contactEmail);
