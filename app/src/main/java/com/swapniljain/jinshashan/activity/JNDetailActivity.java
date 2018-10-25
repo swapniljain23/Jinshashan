@@ -188,7 +188,7 @@ public class JNDetailActivity extends AppCompatActivity {
         mPersonalRemarks.setText(mDataModel.personalInfo.remarks);
 
         // Recent info.
-        mRecentAddress.setText(String.format("%s \n %s, %s",
+        mRecentAddress.setText(String.format("%s, %s, %s",
                 mDataModel.recentInfo.address,
                 mDataModel.recentInfo.city,
                 mDataModel.recentInfo.state));
