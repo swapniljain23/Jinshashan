@@ -150,7 +150,7 @@ public class JNListActivity extends AppCompatActivity
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+             super.onBackPressed();
         }
     }
 
@@ -210,9 +210,9 @@ public class JNListActivity extends AppCompatActivity
             // Start take a vow activity.
             Intent takeAVowIntent = new Intent(this, JNTakeAVowActivity.class);
             startActivity(takeAVowIntent);
-        } else if (id == R.id.nav_sign_out) {
-            // Perform sign out.
-            performSignOut();
+//        } else if (id == R.id.nav_sign_out) {
+//            // Perform sign out.
+//            performSignOut();
         } else if (id == R.id.nav_share) {
             // Share app link.
 
