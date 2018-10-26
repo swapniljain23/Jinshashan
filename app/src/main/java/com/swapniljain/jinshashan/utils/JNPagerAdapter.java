@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.google.common.collect.FluentIterable;
 import com.swapniljain.jinshashan.fragments.JNListFragment;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
@@ -40,15 +41,12 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
         arguments.putString(SECT, mSectList.get(i));
 
         // Filter list.
-        List<JNListDataModel> filteredList = new ArrayList<>();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-             filteredList = mDataModel.
-                    stream().
-                    filter(list -> mSectList.get(i).equalsIgnoreCase(list.sect.sect1)).
-                    collect(Collectors.toList());
-        }
-        arguments.putParcelableArrayList(DATA_MODEL,
-                (ArrayList<? extends Parcelable>) filteredList);
+        List<JNListDataModel> filteredList = FluentIterable.from(mDataModel)
+                .filter(list -> mSectList.get(i).equalsIgnoreCase(list.sect.sect1))
+                .toList();
+        ArrayList<JNListDataModel> filterdArraylist = new ArrayList<>(filteredList);
+
+        arguments.putParcelableArrayList(DATA_MODEL, filterdArraylist);
 
         Fragment fragment = new JNListFragment();
         fragment.setArguments(arguments);

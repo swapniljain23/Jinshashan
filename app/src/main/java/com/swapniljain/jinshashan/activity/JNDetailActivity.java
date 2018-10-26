@@ -150,12 +150,12 @@ public class JNDetailActivity extends AppCompatActivity {
         setTitle(mDataModel.dikshaInfo.dikshaName);
         if (TextUtils.isEmpty(mDataModel.photoURL)) {
             Picasso.get()
-                    .load(R.drawable.card_placeholder)
+                    .load(R.drawable.hero_image)
                     .into(mHeroImageView);
         } else {
             Picasso.get()
                     .load(mDataModel.photoURL)
-                    .placeholder(R.drawable.card_placeholder)
+                    .placeholder(R.drawable.hero_image)
                     .into(mHeroImageView);
         }
 

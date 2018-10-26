@@ -65,7 +65,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         Log.d(TAG,"Sect: " + mSect);
 
         mDataModels = getArguments().getParcelableArrayList(JNPagerAdapter.DATA_MODEL);
-        Log.d(TAG,mDataModels.toString());
+        Log.d(TAG, mDataModels.toString());
 
         // Setup recycler view.
         mJNListRecyclerView = rootView.findViewById(R.id.rv_jnlist);

@@ -13,7 +13,7 @@
         android:layout_margin="8dp"
         android:scaleType="centerCrop"
         android:contentDescription="@string/hero_image_content_desc"
-        android:src="@drawable/card_placeholder_02"/>
+        android:src="@drawable/hero_image"/>
 
     <LinearLayout
         android:id="@+id/appwidget_data"
