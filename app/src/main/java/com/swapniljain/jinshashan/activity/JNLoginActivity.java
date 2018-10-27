@@ -50,6 +50,7 @@ public class JNLoginActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Log.d(TAG, "PhotoURL: " + user.getPhotoUrl());
                 startListActivity(user, user.getPhotoUrl());
+                finish();
             } else {
                 // Sign in failed.
                 Log.d(TAG, "Failed to login.");
