@@ -3,11 +3,15 @@ package com.swapniljain.jinshashan.utils;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.common.collect.FluentIterable;
 import com.swapniljain.jinshashan.fragments.JNListFragment;
@@ -18,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JNPagerAdapter extends FragmentPagerAdapter {
+public class JNPagerAdapter extends FragmentStatePagerAdapter {
 
     // Public members.
     public static String SECT = "sect";
@@ -29,6 +33,7 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
     private Context mContext;
     private List<String> mSectList =
             Arrays.asList("Digambar", "Shwetambar", "Terapanthi", "Sthanakvasi");
+    private static String TAG = JNPagerAdapter.class.toString();
 
     public JNPagerAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -41,12 +46,14 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
         arguments.putString(SECT, mSectList.get(i));
 
         // Filter list.
-        List<JNListDataModel> filteredList = FluentIterable.from(mDataModel)
-                .filter(list -> mSectList.get(i).equalsIgnoreCase(list.sect.sect1))
-                .toList();
-        ArrayList<JNListDataModel> filterdArraylist = new ArrayList<>(filteredList);
+        if (mDataModel != null) {
+            List<JNListDataModel> filteredList = FluentIterable.from(mDataModel)
+                    .filter(list -> mSectList.get(i).equalsIgnoreCase(list.sect.sect1))
+                    .toList();
+            ArrayList<JNListDataModel> filterdArraylist = new ArrayList<>(filteredList);
 
-        arguments.putParcelableArrayList(DATA_MODEL, filterdArraylist);
+            arguments.putParcelableArrayList(DATA_MODEL, filterdArraylist);
+        }
 
         Fragment fragment = new JNListFragment();
         fragment.setArguments(arguments);
@@ -66,11 +73,11 @@ public class JNPagerAdapter extends FragmentPagerAdapter {
 
     // Setters, getters.
 
-    public List<JNListDataModel> getmDataModel() {
+    public List<JNListDataModel> getDataModel() {
         return mDataModel;
     }
 
-    public void setmDataModel(List<JNListDataModel> mDataModel) {
-        this.mDataModel = mDataModel;
+    public void setDataModel(List<JNListDataModel> dataModel) {
+        this.mDataModel = dataModel;
     }
 }

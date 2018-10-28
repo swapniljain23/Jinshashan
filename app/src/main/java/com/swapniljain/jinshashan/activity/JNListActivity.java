@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -31,9 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.common.collect.FluentIterable;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,10 +40,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import com.swapniljain.jinshashan.R;
+import com.swapniljain.jinshashan.dialogs.JNAboutDialogFragment;
+import com.swapniljain.jinshashan.dialogs.JNContactUsDialogFragment;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class JNListActivity extends AppCompatActivity
@@ -59,6 +59,9 @@ public class JNListActivity extends AppCompatActivity
     public static String WIDGET_TITLE = "widget_title";
     public static String WIDGET_SUBTITLE = "widget_subtitle";
     public static String WIDGET_HERO_IMAGE_URL = "widget_hero_image_url";
+    public static String APP_DEFAULTS = "app_defaults";
+    public static String DEFAULT_MENU_ITEM = "default_menu_item";
+
     private static String TAG = JNListActivity.class.toString();
 
     private DrawerLayout mDrawer;
@@ -67,11 +70,16 @@ public class JNListActivity extends AppCompatActivity
     private ImageView mUserImageView;
     private ProgressBar mProgressBar;
     private TextView mDatabaseError;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private Toolbar mToolbar;
 
     private FirebaseUser mFirebaseUser;
     private Uri mUserPhotoURI;
 
     private List<JNListDataModel> mDataModels;
+    private List<String> mTitleList =
+            Arrays.asList("Sadhus", "Sadhvis", "Favorites", "Take a vow");
 
     // The idling resource which will be null in production.
     @Nullable private SimpleIdlingResource mIdlingResource;
@@ -90,17 +98,19 @@ public class JNListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jnlist);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         mProgressBar = findViewById(R.id.progress_circular);
         mDatabaseError = findViewById(R.id.tv_database_error);
+        mViewPager = findViewById(R.id.view_pager);
+        mTabLayout = findViewById(R.id.tabs);
 
         mDrawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
                 mDrawer,
-                toolbar,
+                mToolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
@@ -108,6 +118,13 @@ public class JNListActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Set the previously selected item checked.
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt(DEFAULT_MENU_ITEM, R.id.nav_sadhus);
+        navigationView.setCheckedItem(id);
+        setTitleForNavItemId(id);
 
         View headerView = navigationView.getHeaderView(0);
         mUserName = headerView.findViewById(R.id.user_name_tv);
@@ -130,7 +147,7 @@ public class JNListActivity extends AppCompatActivity
             mFirebaseUser = savedInstanceState.getParcelable(FIREBASE_USER_EXTRA);
             mUserPhotoURI = savedInstanceState.getParcelable(USER_PHOTO_URI_EXTRA);
             mDataModels = savedInstanceState.getParcelableArrayList(DATA_MODEL);
-            populateTabs();
+            refreshUI();
         }
 
         // Set user info.
@@ -194,38 +211,64 @@ public class JNListActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Do nothing. already at home.
+        // Saved the selected item in shared preference.
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(DEFAULT_MENU_ITEM, id);
+        editor.apply();
+
+        if (id == R.id.nav_sadhus) {
+            refreshUI();
+        } else if (id == R.id.nav_sadhvis) {
+            refreshUI();
         } else if (id == R.id.nav_favorites) {
-            // Start favorite activity.
-            Intent favoritesIntent = new Intent(this, JNFavoritesActivity.class);
-            startActivity(favoritesIntent);
+            refreshUI();
         } else if (id == R.id.nav_vow) {
-            // Start take a vow activity.
-            Intent takeAVowIntent = new Intent(this, JNTakeAVowActivity.class);
-            startActivity(takeAVowIntent);
-//        } else if (id == R.id.nav_sign_out) {
-//            // Perform sign out.
-//            performSignOut();
+             // Start take a vow activity.
+             Intent takeAVowIntent = new Intent(this, JNTakeAVowActivity.class);
+             startActivity(takeAVowIntent);
+        /*
+        } else if (id == R.id.nav_sign_out) {
+            // Perform sign out.
+            performSignOut();
+        */
         } else if (id == R.id.nav_share) {
             // Share app link.
 
         } else if (id == R.id.nav_send_feedback) {
             // Start send feedback activity.
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.setType("text/email");
+            email.putExtra(Intent.EXTRA_EMAIL,
+                    new String[] { getResources().getString(R.string.email_recipient) } );
+            email.putExtra(Intent.EXTRA_SUBJECT,
+                    getResources().getString(R.string.email_subject));
+            email.putExtra(Intent.EXTRA_TEXT,
+                    getResources().getString(R.string.email_text));
+            startActivity(Intent.createChooser(email,
+                    getResources().getString(R.string.email_title)));
+        } else if (id ==  R.id.nav_contact_us) {
+            JNContactUsDialogFragment dialogFragment = new JNContactUsDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "contact_us");
+        } else if (id == R.id.nav_about) {
+            JNAboutDialogFragment dialogFragment = new JNAboutDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "about_us");
         }
 
+        setTitleForNavItemId(id);
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     // Private methods.
 
+    /*
     private void performSignOut() {
         AuthUI.getInstance()
                 .signOut(this)
@@ -236,6 +279,7 @@ public class JNListActivity extends AppCompatActivity
                     }
                 });
     }
+    */
 
     private void populateUserInfo() {
         if (mFirebaseUser == null) {
@@ -258,14 +302,37 @@ public class JNListActivity extends AppCompatActivity
         }
     }
 
-    private void populateTabs() {
-        // Tab layout.
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        JNPagerAdapter pagerAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
-        pagerAdapter.setmDataModel(mDataModels);
-        viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+    private void refreshUI() {
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt(DEFAULT_MENU_ITEM, R.id.nav_sadhus);
+        List<JNListDataModel> filteredList;
+        switch (id) {
+            case R.id.nav_sadhus:
+                filteredList = FluentIterable.from(mDataModels)
+                        .filter(list ->
+                                list.personalInfo.gender.equalsIgnoreCase("male"))
+                        .toList();
+                break;
+            case R.id.nav_sadhvis:
+                filteredList = FluentIterable.from(mDataModels)
+                        .filter(list ->
+                                list.personalInfo.gender.equalsIgnoreCase("female"))
+                        .toList();
+                break;
+            case R.id.nav_favorites:
+            default:
+                // Rest all, show sadhus.
+                filteredList = FluentIterable.from(mDataModels)
+                        .filter(list ->
+                                list.personalInfo.gender.equalsIgnoreCase("male"))
+                        .toList();
+        }
+
+        JNPagerAdapter pageAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
+        pageAdapter.setDataModel(filteredList);
+        mViewPager.setAdapter(pageAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     private void fetchData() {
@@ -304,13 +371,15 @@ public class JNListActivity extends AppCompatActivity
                 mProgressBar.setVisibility(View.INVISIBLE);
 
                 // Refresh ui.
-                populateTabs();
+                refreshUI();
 
+                /*
                 // Save first object (if exist) in shared preference so it can be used to display
                 // in widgets.
                 if (mDataModels.size() > 0) {
                     writeToSharedPreference(mDataModels.get(0));
                 }
+                */
 
                 // Only for testing.
                 if(mIdlingResource != null) {
@@ -338,21 +407,34 @@ public class JNListActivity extends AppCompatActivity
         });
     }
 
-    public void writeToSharedPreference(JNListDataModel dataModel) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                SharedPreferences sharedPreferences =
-                        getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.putString(WIDGET_TITLE, dataModel.dikshaInfo.dikshaName);
-                editor.putString(WIDGET_SUBTITLE, dataModel.sect.sect1 + ", 60 Years, Jabalpur MP");
-                editor.putString(WIDGET_HERO_IMAGE_URL, dataModel.photoURL);
-
-                editor.apply();
-                return null;
-            }
-        }.execute();
+    private void setTitleForNavItemId(int id) {
+        switch (id) {
+            case R.id.nav_sadhvis:
+                mToolbar.setTitle(mTitleList.get(1));
+                break;
+            case R.id.nav_favorites:
+                mToolbar.setTitle(mTitleList.get(2));
+                break;
+            case R.id.nav_vow:
+                mToolbar.setTitle(mTitleList.get(3));
+                break;
+            case R.id.nav_sadhus:
+            default:
+                mToolbar.setTitle(mTitleList.get(0));
+        }
     }
+    /*
+    public void writeToSharedPreference(JNListDataModel dataModel) {
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(WIDGET_TITLE, dataModel.dikshaInfo.dikshaName);
+        editor.putString(WIDGET_SUBTITLE, String.format("%s, %d Years",
+                dataModel.sect.sect1,
+                JNUtils.calculateAge(dataModel.personalInfo.dateOfBirth)));
+        editor.putString(WIDGET_HERO_IMAGE_URL, dataModel.photoURL);
+        editor.apply();
+    }
+    */
 }

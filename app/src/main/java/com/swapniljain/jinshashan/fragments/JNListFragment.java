@@ -61,11 +61,15 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         View rootView = inflater.inflate(R.layout.fragment_jnlist, container, false);
         mNoDataFoundTextView = rootView.findViewById(R.id.tv_no_data_found);
 
-        mSect = getArguments().getString(JNPagerAdapter.SECT);
-        Log.d(TAG,"Sect: " + mSect);
+        Bundle arguments = getArguments();
+        if (arguments.containsKey(JNPagerAdapter.SECT) &&
+                arguments.containsKey(JNPagerAdapter.DATA_MODEL)) {
+            mSect = getArguments().getString(JNPagerAdapter.SECT);
+            Log.d(TAG,"Sect: " + mSect);
 
-        mDataModels = getArguments().getParcelableArrayList(JNPagerAdapter.DATA_MODEL);
-        Log.d(TAG, mDataModels.toString());
+            mDataModels = getArguments().getParcelableArrayList(JNPagerAdapter.DATA_MODEL);
+            Log.d(TAG, mDataModels.toString());
+        }
 
         // Setup recycler view.
         mJNListRecyclerView = rootView.findViewById(R.id.rv_jnlist);
@@ -74,7 +78,7 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
         mJNListRecyclerView.setLayoutManager(layoutManager);
 
         // Populate data.
-        if(mDataModels.size() > 0) {
+        if(mDataModels != null && mDataModels.size() > 0) {
             mNoDataFoundTextView.setVisibility(View.INVISIBLE);
 
             JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);

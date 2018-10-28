@@ -5,16 +5,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="@string/nav_home_title" />
+            android:id="@+id/nav_sadhus"
+            android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
+            android:title="@string/nav_sadhus_title" />
+        <item
+            android:id="@+id/nav_sadhvis"
+            android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
+            android:title="@string/nav_sadhvis_title" />
         <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/nav_favorites_title" />
         <item
             android:id="@+id/nav_vow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
             android:title="@string/nav_take_a_vow_title" />
         <!--<item-->
             <!--android:id="@+id/nav_sign_out"-->
@@ -30,9 +34,22 @@
                 android:title="@string/nav_share_title" />
             <item
                 android:id="@+id/nav_send_feedback"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_feedback_black_24dp"
                 android:title="@string/nav_send_feedback_title" />
+            <item
+                android:id="@+id/nav_contact_us"
+                android:icon="@drawable/ic_contact_mail_black_24dp"
+                android:title="@string/nav_contact_us" />
         </menu>
     </item>
+
+    <group
+        android:id="@+id/nav_group_about"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
+            android:title="@string/nav_about" />
+    </group>
 
 </menu>

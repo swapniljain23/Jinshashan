@@ -14,7 +14,7 @@
     <string name="default_text">Default Text</string>
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
     <string name="not_available">NA</string>
-    <string name="no_data_found">No data found. Please try again later.</string>
+    <string name="no_data_found">No data available. Please try again later.</string>
     <string name="database_error">Sorry, could not fetch the data. Please try again later.</string>
 
     <!-- Activity title text. -->
@@ -59,11 +59,29 @@
     <string name="hero_image_content_desc">Hero image</string>
     <string name="favorite_button_content_desc">Favorite</string>
     <string name="nav_home_title">Home</string>
+    <string name="nav_sadhus_title">Sadhus</string>
+    <string name="nav_sadhvis_title">Sadhvis</string>
     <string name="nav_favorites_title">Favorites</string>
     <string name="nav_take_a_vow_title">Take a vow</string>
     <string name="nav_sign_out_title">Sign out</string>
     <string name="nav_communicate_title">Communicate</string>
     <string name="nav_share_title">Share</string>
     <string name="nav_send_feedback_title">Send feedback</string>
+    <string name="nav_contact_us">Contact us</string>
+    <string name="nav_about">About</string>
+
+    <!--Email defaults-->
+    <string name="email_recipient">swapnilabad@gmail.com</string>
+    <string name="email_subject">Jinshashan - Feedback</string>
+    <string name="email_text">Jai Jinendra</string>
+    <string name="email_title">Send feedback</string>
+
+    <!--Dialogs-->
+    <string name="ok_text">OK</string>
+    <string name="about_us_text">TBD</string>
+    <string name="contact_us_text">
+        Should you have any questions, concerns or suggestions. Kindly email us at
+        \'swapnilabad@gmail.com\'.
+    </string>
 
 </resources>
