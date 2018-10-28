@@ -1,17 +1,11 @@
 package com.swapniljain.jinshashan.activity;
 
 import android.content.Intent;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +15,6 @@ import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,9 +22,9 @@ import androidx.appcompat.widget.Toolbar;
 
 public class JNDetailActivity extends AppCompatActivity {
 
-    public static String LIST_MODEL_EXTRA = "LIST_MODEL_EXTRA";
+    public static final String LIST_MODEL_EXTRA = "LIST_MODEL_EXTRA";
 
-    private String TAG = JNDetailActivity.class.toString();
+    private static final String TAG = JNDetailActivity.class.toString();
     private JNListDataModel mDataModel;
 
     // Data views.
@@ -68,19 +60,14 @@ public class JNDetailActivity extends AppCompatActivity {
         // Setup close button.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_acent_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
 
         // Hide title.
         // getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Favorite button.
         FloatingActionButton favoriteButton = findViewById(R.id.favorite_button);
-        favoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"Favorite clicked!");
-            }
-        });
+        favoriteButton.setOnClickListener(v -> Log.d(TAG,"Favorite clicked!"));
 
         // Hero image.
         mHeroImageView = findViewById(R.id.hero_image_view);

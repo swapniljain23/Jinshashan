@@ -18,8 +18,8 @@ import java.util.List;
 
 public class JNLoginActivity extends AppCompatActivity {
 
-    private static int RC_SIGN_IN = 1001;
-    private static String TAG = JNLoginActivity.class.toString();
+    private static final int RC_SIGN_IN = 1001;
+    private static final String TAG = JNLoginActivity.class.toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

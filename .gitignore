@@ -11,4 +11,4 @@
 .externalNativeBuild
 app/release/
 /keystore.properties
-/keystore
+/android-keystore

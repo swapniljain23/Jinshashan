@@ -1,7 +1,6 @@
 package com.swapniljain.jinshashan.dialogs;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.swapniljain.jinshashan.R;
@@ -17,10 +16,8 @@ public class JNAboutDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.nav_about);
         builder.setMessage(R.string.about_us_text)
-                .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton(R.string.ok_text, (dialog, id) -> {
 
-                    }
                 });
         // Create the AlertDialog object and return it
         return builder.create();

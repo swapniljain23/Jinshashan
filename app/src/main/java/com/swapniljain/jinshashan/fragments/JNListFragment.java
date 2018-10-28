@@ -1,39 +1,25 @@
 package com.swapniljain.jinshashan.fragments;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.IdlingResource;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.activity.JNDetailActivity;
-import com.swapniljain.jinshashan.activity.SimpleIdlingResource;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 import com.swapniljain.jinshashan.utils.JNListAdapter;
 import com.swapniljain.jinshashan.utils.JNPagerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,13 +27,11 @@ import java.util.List;
  */
 public class JNListFragment extends Fragment implements JNListAdapter.CardViewClickListener {
 
-    private static String TAG = JNListFragment.class.toString();
+    private static final String TAG = JNListFragment.class.toString();
 
     private List<JNListDataModel> mDataModels;
-    private String mSect;
 
     private RecyclerView mJNListRecyclerView;
-    private TextView mNoDataFoundTextView;
 
     public JNListFragment() {
         // Required empty public constructor
@@ -59,16 +43,18 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_jnlist, container, false);
-        mNoDataFoundTextView = rootView.findViewById(R.id.tv_no_data_found);
+        TextView noDataFoundTextView = rootView.findViewById(R.id.tv_no_data_found);
 
         Bundle arguments = getArguments();
         if (arguments.containsKey(JNPagerAdapter.SECT) &&
                 arguments.containsKey(JNPagerAdapter.DATA_MODEL)) {
-            mSect = getArguments().getString(JNPagerAdapter.SECT);
-            Log.d(TAG,"Sect: " + mSect);
+            String sect = getArguments().getString(JNPagerAdapter.SECT);
+            Log.d(TAG,"Sect: " + sect);
 
             mDataModels = getArguments().getParcelableArrayList(JNPagerAdapter.DATA_MODEL);
-            Log.d(TAG, mDataModels.toString());
+            if (mDataModels != null ) {
+                Log.d(TAG, mDataModels.toString());
+            }
         }
 
         // Setup recycler view.
@@ -79,21 +65,23 @@ public class JNListFragment extends Fragment implements JNListAdapter.CardViewCl
 
         // Populate data.
         if(mDataModels != null && mDataModels.size() > 0) {
-            mNoDataFoundTextView.setVisibility(View.INVISIBLE);
+            noDataFoundTextView.setVisibility(View.INVISIBLE);
 
             JNListAdapter listAdapter =  new JNListAdapter(mDataModels, this);
             mJNListRecyclerView.setAdapter(listAdapter);
         } else {
-            mNoDataFoundTextView.setVisibility(View.VISIBLE);
+            noDataFoundTextView.setVisibility(View.VISIBLE);
         }
 
         return rootView;
     }
 
+    /*
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+    */
 
     @Override
     public void onCardViewClick(int clickedCardItemPosition) {

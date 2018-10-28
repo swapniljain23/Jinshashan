@@ -57,14 +57,14 @@ dependencies {
     //androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-beta02'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'androidx.test:runner:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
     //implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0-beta02'
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
     // Picasso.
     implementation 'com.squareup.picasso:picasso:2.71828'
     // Firebase dependencies.
     implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

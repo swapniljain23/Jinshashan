@@ -2,15 +2,10 @@ package com.swapniljain.jinshashan.utils;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.common.collect.FluentIterable;
@@ -20,24 +15,21 @@ import com.swapniljain.jinshashan.model.JNListDataModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class JNPagerAdapter extends FragmentStatePagerAdapter {
 
     // Public members.
-    public static String SECT = "sect";
-    public static String DATA_MODEL = "data_model";
+    public static final String SECT = "sect";
+    public static final String DATA_MODEL = "data_model";
     public List<JNListDataModel> mDataModel;
 
     // Private members.
-    private Context mContext;
-    private List<String> mSectList =
+    private final List<String> mSectList =
             Arrays.asList("Digambar", "Shwetambar", "Terapanthi", "Sthanakvasi");
     private static String TAG = JNPagerAdapter.class.toString();
 
     public JNPagerAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
-        mContext = context;
     }
 
     @Override

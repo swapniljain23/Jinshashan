@@ -2,8 +2,6 @@
     <string name="app_name">Jinshashan</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <!--Action bar-->
@@ -11,18 +9,14 @@
     <string name="action_search">Search</string>
 
     <!--Default text-->
-    <string name="default_text">Default Text</string>
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
     <string name="not_available">NA</string>
     <string name="no_data_found">No data available. Please try again later.</string>
-    <string name="database_error">Sorry, could not fetch the data. Please try again later.</string>
 
     <!-- Activity title text. -->
     <string name="title_activity_jndetail">Namo Loye Savv Sahunam</string>
     <string name="title_activity_jnfavorites">Favorites</string>
     <string name="title_activity_jntake_avow">Take A Vow Today</string>
-    <string name="title_activity_jnlogin">Namo Loye Savv Sahunam</string>
-    <string name="title_activity_jnlist">Namo Loye Savv Sahunam</string>
 
     <!--Labels-->
 
@@ -53,17 +47,14 @@
     <!--Common labels-->
     <string name="remarks">Remarks</string>
     <string name="appwidget_text">JINSHASHAN</string>
-    <string name="add_widget">Add widget</string>
 
     <!--Accessibility text-->
     <string name="hero_image_content_desc">Hero image</string>
     <string name="favorite_button_content_desc">Favorite</string>
-    <string name="nav_home_title">Home</string>
     <string name="nav_sadhus_title">Sadhus</string>
     <string name="nav_sadhvis_title">Sadhvis</string>
     <string name="nav_favorites_title">Favorites</string>
     <string name="nav_take_a_vow_title">Take a vow</string>
-    <string name="nav_sign_out_title">Sign out</string>
     <string name="nav_communicate_title">Communicate</string>
     <string name="nav_share_title">Share</string>
     <string name="nav_send_feedback_title">Send feedback</string>

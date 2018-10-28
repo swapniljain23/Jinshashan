@@ -52,17 +52,17 @@ import java.util.List;
 public class JNListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String FIREBASE_USER_EXTRA = "firebase_user_extra";
-    public static String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
-    public static String DATA_MODEL = "data_model";
-    public static String PREFERENCE_NAME = "list_activity_preference";
-    public static String WIDGET_TITLE = "widget_title";
-    public static String WIDGET_SUBTITLE = "widget_subtitle";
-    public static String WIDGET_HERO_IMAGE_URL = "widget_hero_image_url";
-    public static String APP_DEFAULTS = "app_defaults";
-    public static String DEFAULT_MENU_ITEM = "default_menu_item";
+    public static final String FIREBASE_USER_EXTRA = "firebase_user_extra";
+    public static final String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
+    public static final String DATA_MODEL = "data_model";
+    public static final String PREFERENCE_NAME = "list_activity_preference";
+    public static final String WIDGET_TITLE = "widget_title";
+    public static final String WIDGET_SUBTITLE = "widget_subtitle";
+    public static final String WIDGET_HERO_IMAGE_URL = "widget_hero_image_url";
+    public static final String APP_DEFAULTS = "app_defaults";
+    public static final String DEFAULT_MENU_ITEM = "default_menu_item";
 
-    private static String TAG = JNListActivity.class.toString();
+    private static final String TAG = JNListActivity.class.toString();
 
     private DrawerLayout mDrawer;
     private TextView mUserName;
@@ -78,7 +78,7 @@ public class JNListActivity extends AppCompatActivity
     private Uri mUserPhotoURI;
 
     private List<JNListDataModel> mDataModels;
-    private List<String> mTitleList =
+    private final List<String> mTitleList =
             Arrays.asList("Sadhus", "Sadhvis", "Favorites");
 
     // The idling resource which will be null in production.

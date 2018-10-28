@@ -18,7 +18,4 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
 
-    <!--Common colors-->
-    <color name="colorWhite">#FFFFFF</color>
-
 </resources>

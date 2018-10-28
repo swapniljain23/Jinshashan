@@ -15,14 +15,15 @@ import com.swapniljain.jinshashan.R;
 import com.swapniljain.jinshashan.model.JNListDataModel;
 
 import java.util.List;
+import java.util.Locale;
 
 public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListViewHolder> {
 
     private String TAG = JNListAdapter.class.toString();
-    private List<JNListDataModel> mDataModels;
+    private final List<JNListDataModel> mDataModels;
     private Context mContext;
 
-    public CardViewClickListener mCardViewClickListener;
+    public final CardViewClickListener mCardViewClickListener;
 
     public JNListAdapter(List<JNListDataModel> dataModels, CardViewClickListener listener) {
         mDataModels = dataModels;
@@ -49,7 +50,8 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
 
         // Set the data.
         holder.card_title.setText(dataModel.dikshaInfo.dikshaName);
-        holder.card_subtitle_1.setText(String.format("%s, %d Years",
+        holder.card_subtitle_1.setText(String.format(Locale.US,
+                "%s, %d Years",
                 dataModel.sect.sect1,
                 JNUtils.calculateAge(dataModel.personalInfo.dateOfBirth)));
         holder.card_subtitle_2.setText(String.format("%s, %s",
@@ -81,10 +83,10 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
 
     class JNListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView card_title;
-        private TextView card_subtitle_1;
-        private TextView card_subtitle_2;
-        private ImageView card_image_view;
+        private final TextView card_title;
+        private final TextView card_subtitle_1;
+        private final TextView card_subtitle_2;
+        private final ImageView card_image_view;
 
         public JNListViewHolder(View view) {
             super(view);
