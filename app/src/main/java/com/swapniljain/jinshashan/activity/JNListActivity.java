@@ -79,7 +79,7 @@ public class JNListActivity extends AppCompatActivity
 
     private List<JNListDataModel> mDataModels;
     private List<String> mTitleList =
-            Arrays.asList("Sadhus", "Sadhvis", "Favorites", "Take a vow");
+            Arrays.asList("Sadhus", "Sadhvis", "Favorites");
 
     // The idling resource which will be null in production.
     @Nullable private SimpleIdlingResource mIdlingResource;
@@ -414,9 +414,6 @@ public class JNListActivity extends AppCompatActivity
                 break;
             case R.id.nav_favorites:
                 mToolbar.setTitle(mTitleList.get(2));
-                break;
-            case R.id.nav_vow:
-                mToolbar.setTitle(mTitleList.get(3));
                 break;
             case R.id.nav_sadhus:
             default:

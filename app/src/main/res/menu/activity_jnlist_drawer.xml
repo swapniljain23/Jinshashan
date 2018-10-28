@@ -16,14 +16,24 @@
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/nav_favorites_title" />
-        <item
-            android:id="@+id/nav_vow"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="@string/nav_take_a_vow_title" />
         <!--<item-->
             <!--android:id="@+id/nav_sign_out"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
             <!--android:title="@string/nav_sign_out_title" />-->
+    </group>
+
+    <group
+        android:id="@+id/nav_group_other_action"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_vow"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="@string/nav_take_a_vow_title" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
+            android:title="@string/nav_about" />
+
     </group>
 
     <item android:title="@string/nav_communicate_title">
@@ -42,14 +52,5 @@
                 android:title="@string/nav_contact_us" />
         </menu>
     </item>
-
-    <group
-        android:id="@+id/nav_group_about"
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
-            android:title="@string/nav_about" />
-    </group>
 
 </menu>

@@ -68,7 +68,7 @@ public class JNDetailActivity extends AppCompatActivity {
         // Setup close button.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_acent_24dp);
 
         // Hide title.
         // getSupportActionBar().setDisplayShowTitleEnabled(false);
