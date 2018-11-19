@@ -15,13 +15,13 @@ public class JNListDataModel {
 
         // Default constructor.
         public DikshaInfo () {
-            dikshaName = "NA";
-            dikshaDate = "NA";
-            dikshaCity = "NA";
-            dikshaState = "NA";
-            dikshitBy = "NA";
-            dikshaGuru = "NA";
-            remarks = "NA";
+            dikshaName = "N/A";
+            dikshaDate = "N/A";
+            dikshaCity = "N/A";
+            dikshaState = "N/A";
+            dikshitBy = "N/A";
+            dikshaGuru = "N/A";
+            remarks = "N/A";
         }
 
         @Override
@@ -50,15 +50,15 @@ public class JNListDataModel {
 
         // Default constructor.
         public PersonalInfo () {
-            fullName = "NA";
-            dateOfBirth = "NA";
-            gender = "NA";
-            fatherNmae = "NA";
-            motherName = "NA";
-            birthCity = "NA";
-            birthState = "NA";
-            education = "NA";
-            remarks = "NA";
+            fullName = "N/A";
+            dateOfBirth = "N/A";
+            gender = "N/A";
+            fatherNmae = "N/A";
+            motherName = "N/A";
+            birthCity = "N/A";
+            birthState = "N/A";
+            education = "N/A";
+            remarks = "N/A";
         }
 
         @Override
@@ -85,11 +85,11 @@ public class JNListDataModel {
 
         // Default constructor.
         public Sect () {
-            sect1 = "NA";
-            sect2 = "NA";
-            sect3 = "NA";
-            sect4 = "NA";
-            sect5 = "NA";
+            sect1 = "N/A";
+            sect2 = "N/A";
+            sect3 = "N/A";
+            sect4 = "N/A";
+            sect5 = "N/A";
         }
 
         @Override
@@ -115,14 +115,14 @@ public class JNListDataModel {
 
         // Default constructor.
         public RecentInfo () {
-            address = "NA";
-            city = "NA";
-            state = "NA";
-            contactName = "NA";
-            contactPhoneNo = "NA";
-            contactEmail = "NA";
-            remarks = "NA";
-            lastUpdatedTimestamp = "NA";
+            address = "N/A";
+            city = "N/A";
+            state = "N/A";
+            contactName = "N/A";
+            contactPhoneNo = "N/A";
+            contactEmail = "N/A";
+            remarks = "N/A";
+            lastUpdatedTimestamp = "N/A";
         }
 
         @Override
@@ -161,7 +161,7 @@ public class JNListDataModel {
         recentInfo = new RecentInfo();
         sect = new Sect();
         photoURL = "";
-        specialRemarks = "NA";
+        specialRemarks = "N/A";
     }
 
     @Override

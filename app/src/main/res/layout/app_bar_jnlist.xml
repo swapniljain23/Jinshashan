@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_height_with_tab_bar"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll|snap|enterAlways"
             app:titleEnabled="false">
 
             <androidx.appcompat.widget.Toolbar

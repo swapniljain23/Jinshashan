@@ -53,19 +53,29 @@ public class JNListAdapter extends  RecyclerView.Adapter<JNListAdapter.JNListVie
         holder.card_subtitle_1.setText(String.format(Locale.US,
                 "%s, %d Years",
                 dataModel.sect.sect1,
-                JNUtils.calculateAge(dataModel.personalInfo.dateOfBirth)));
-        holder.card_subtitle_2.setText(String.format("%s, %s",
-                dataModel.recentInfo.city,
-                dataModel.recentInfo.state));
+                dataModel.personalInfo.age));
+//        holder.card_subtitle_2.setText(String.format("%s, %s",
+//                dataModel.recentInfo.city,
+//                dataModel.recentInfo.state));
+        holder.card_subtitle_2.setText(dataModel.recentInfo.address);
         String photoURL = dataModel.getPhotoURL();
+
+        // Default placeholder image.
+        int placeholderImageID;
+        if (dataModel.personalInfo.gender.equalsIgnoreCase("male")) {
+            placeholderImageID = R.drawable.hero_image;
+        } else {
+            placeholderImageID = R.drawable.default_sadhvi_image;
+        }
+
         if (TextUtils.isEmpty(photoURL)) {
             Picasso.get()
-                    .load(R.drawable.hero_image)
+                    .load(placeholderImageID)
                     .into(holder.card_image_view);
         } else {
             Picasso.get()
                     .load(photoURL)
-                    .placeholder(R.drawable.hero_image)
+                    .placeholder(placeholderImageID)
                     .into(holder.card_image_view);
         }
     }

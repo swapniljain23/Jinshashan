@@ -54,7 +54,6 @@ public class JNListActivity extends AppCompatActivity
 
     public static final String FIREBASE_USER_EXTRA = "firebase_user_extra";
     public static final String USER_PHOTO_URI_EXTRA = "user_photo_uri_extra";
-    public static final String DATA_MODEL = "data_model";
     public static final String PREFERENCE_NAME = "list_activity_preference";
     public static final String WIDGET_TITLE = "widget_title";
     public static final String WIDGET_SUBTITLE = "widget_subtitle";
@@ -122,7 +121,10 @@ public class JNListActivity extends AppCompatActivity
         // Set the previously selected item checked.
         SharedPreferences sharedPreferences =
                 getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt(DEFAULT_MENU_ITEM, R.id.nav_sadhus);
+        int id = R.id.nav_sadhus;
+        if (sharedPreferences.contains(DEFAULT_MENU_ITEM)) {
+            id = sharedPreferences.getInt(DEFAULT_MENU_ITEM, R.id.nav_sadhus);
+        }
         navigationView.setCheckedItem(id);
         setTitleForNavItemId(id);
 
@@ -132,6 +134,7 @@ public class JNListActivity extends AppCompatActivity
         mUserImageView = headerView.findViewById(R.id.user_image_view);
 
         if (savedInstanceState == null) {
+            Log.d(TAG, "savedInstanceState - null");
             Intent intent = getIntent();
             if (intent.hasExtra(FIREBASE_USER_EXTRA)) {
                 mFirebaseUser = intent.getParcelableExtra(FIREBASE_USER_EXTRA);
@@ -139,16 +142,16 @@ public class JNListActivity extends AppCompatActivity
             if (intent.hasExtra(USER_PHOTO_URI_EXTRA)) {
                 mUserPhotoURI = intent.getParcelableExtra(USER_PHOTO_URI_EXTRA);
             }
-
-            // Start firebase connection and fetch data.
-            fetchData();
-
+            // Enable firebase disk persistence.
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         } else {
+            Log.d(TAG, "savedInstanceState - not null");
             mFirebaseUser = savedInstanceState.getParcelable(FIREBASE_USER_EXTRA);
             mUserPhotoURI = savedInstanceState.getParcelable(USER_PHOTO_URI_EXTRA);
-            mDataModels = savedInstanceState.getParcelableArrayList(DATA_MODEL);
-            refreshUI();
         }
+
+        // Start firebase connection and fetch data.
+        fetchData();
 
         // Set user info.
         populateUserInfo();
@@ -159,7 +162,6 @@ public class JNListActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
         outState.putParcelable(FIREBASE_USER_EXTRA, mFirebaseUser);
         outState.putParcelable(USER_PHOTO_URI_EXTRA, mUserPhotoURI);
-        outState.putParcelableArrayList(DATA_MODEL, (ArrayList<? extends Parcelable>) mDataModels);
     }
 
     @Override
@@ -216,18 +218,14 @@ public class JNListActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        // Saved the selected item in shared preference.
-        SharedPreferences sharedPreferences =
-                getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(DEFAULT_MENU_ITEM, id);
-        editor.apply();
-
         if (id == R.id.nav_sadhus) {
+            saveSelectedMenuItemInSharedPreference(id);
             refreshUI();
         } else if (id == R.id.nav_sadhvis) {
+            saveSelectedMenuItemInSharedPreference(id);
             refreshUI();
         } else if (id == R.id.nav_favorites) {
+            saveSelectedMenuItemInSharedPreference(id);
             refreshUI();
         } else if (id == R.id.nav_vow) {
              // Start take a vow activity.
@@ -257,11 +255,10 @@ public class JNListActivity extends AppCompatActivity
             JNContactUsDialogFragment dialogFragment = new JNContactUsDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "contact_us");
         } else if (id == R.id.nav_about) {
-            JNAboutDialogFragment dialogFragment = new JNAboutDialogFragment();
-            dialogFragment.show(getSupportFragmentManager(), "about_us");
+            Intent aboutIntent = new Intent(this, JNAboutActivity.class);
+            startActivity(aboutIntent);
         }
 
-        setTitleForNavItemId(id);
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -303,10 +300,14 @@ public class JNListActivity extends AppCompatActivity
     }
 
     private void refreshUI() {
+        if (mDataModels == null) {
+            return;
+        }
+
         SharedPreferences sharedPreferences =
                 getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt(DEFAULT_MENU_ITEM, R.id.nav_sadhus);
-        List<JNListDataModel> filteredList;
+        List<JNListDataModel> filteredList = new ArrayList<>();
         switch (id) {
             case R.id.nav_sadhus:
                 filteredList = FluentIterable.from(mDataModels)
@@ -322,12 +323,11 @@ public class JNListActivity extends AppCompatActivity
                 break;
             case R.id.nav_favorites:
             default:
-                // Rest all, show sadhus.
-                filteredList = FluentIterable.from(mDataModels)
-                        .filter(list ->
-                                list.personalInfo.gender.equalsIgnoreCase("male"))
-                        .toList();
+                // Rest all, do nothing.
+                break;
         }
+
+        setTitleForNavItemId(id);
 
         JNPagerAdapter pageAdapter = new JNPagerAdapter(this, getSupportFragmentManager());
         pageAdapter.setDataModel(filteredList);
@@ -336,6 +336,9 @@ public class JNListActivity extends AppCompatActivity
     }
 
     private void fetchData() {
+
+        Log.d(TAG, "Begin firebase database call.");
+
         // Firebase connection.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("data");
@@ -361,7 +364,9 @@ public class JNListActivity extends AppCompatActivity
                 for (DataSnapshot snapshot: children) {
                     JNListDataModel dataModel = new JNListDataModel(snapshot);
                     Log.d(TAG,dataModel.toString());
-                    mDataModels.add(dataModel);
+                    if (dataModel.personalInfo.age < 100) {
+                        mDataModels.add(dataModel);
+                    }
                 }
 
                 // Hide error string, if any.
@@ -409,16 +414,25 @@ public class JNListActivity extends AppCompatActivity
 
     private void setTitleForNavItemId(int id) {
         switch (id) {
+            case R.id.nav_sadhus:
+                mToolbar.setTitle(mTitleList.get(0));
+                break;
             case R.id.nav_sadhvis:
                 mToolbar.setTitle(mTitleList.get(1));
                 break;
             case R.id.nav_favorites:
                 mToolbar.setTitle(mTitleList.get(2));
                 break;
-            case R.id.nav_sadhus:
-            default:
-                mToolbar.setTitle(mTitleList.get(0));
         }
+    }
+
+    private void saveSelectedMenuItemInSharedPreference(int id) {
+        // Saved the selected item in shared preference.
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(APP_DEFAULTS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(DEFAULT_MENU_ITEM, id);
+        editor.apply();
     }
     /*
     public void writeToSharedPreference(JNListDataModel dataModel) {

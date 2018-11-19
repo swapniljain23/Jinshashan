@@ -135,14 +135,23 @@ public class JNDetailActivity extends AppCompatActivity {
     public void populateUI() {
         // Set image.
         setTitle(mDataModel.dikshaInfo.dikshaName);
+
+        // Default placeholder image.
+        int placeholderImageID;
+        if (mDataModel.personalInfo.gender.equalsIgnoreCase("male")) {
+            placeholderImageID = R.drawable.hero_image;
+        } else {
+            placeholderImageID = R.drawable.default_sadhvi_image;
+        }
+
         if (TextUtils.isEmpty(mDataModel.photoURL)) {
             Picasso.get()
-                    .load(R.drawable.hero_image)
+                    .load(placeholderImageID)
                     .into(mHeroImageView);
         } else {
             Picasso.get()
                     .load(mDataModel.photoURL)
-                    .placeholder(R.drawable.hero_image)
+                    .placeholder(placeholderImageID)
                     .into(mHeroImageView);
         }
 
@@ -152,9 +161,10 @@ public class JNDetailActivity extends AppCompatActivity {
                 "%s, %d Years",
                 mDataModel.sect.sect1,
                 JNUtils.calculateAge(mDataModel.personalInfo.dateOfBirth)));
-        mSubtitle2.setText(String.format("%s, %s",
-                mDataModel.recentInfo.city,
-                mDataModel.recentInfo.state));
+//        mSubtitle2.setText(String.format("%s, %s",
+//                mDataModel.recentInfo.city,
+//                mDataModel.recentInfo.state));
+        mSubtitle2.setText(mDataModel.recentInfo.address);
 
         // Diksha info.
         mDikshaDate.setText(mDataModel.dikshaInfo.dikshaDate);
@@ -175,10 +185,11 @@ public class JNDetailActivity extends AppCompatActivity {
         mPersonalRemarks.setText(mDataModel.personalInfo.remarks);
 
         // Recent info.
-        mRecentAddress.setText(String.format("%s, %s, %s",
-                mDataModel.recentInfo.address,
-                mDataModel.recentInfo.city,
-                mDataModel.recentInfo.state));
+//        mRecentAddress.setText(String.format("%s, %s, %s",
+//                mDataModel.recentInfo.address,
+//                mDataModel.recentInfo.city,
+//                mDataModel.recentInfo.state));
+        mRecentAddress.setText(mDataModel.recentInfo.address);
         mContactName.setText(mDataModel.recentInfo.contactName);
         mContactPhoneNo.setText(mDataModel.recentInfo.contactPhoneNo);
         mContactEmailID.setText(mDataModel.recentInfo.contactEmail);

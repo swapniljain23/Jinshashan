@@ -61,8 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginRight="48dp"
+                android:layout_marginEnd="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
@@ -125,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -168,6 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -230,6 +232,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -251,6 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -272,6 +276,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -293,6 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -400,6 +406,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -421,6 +428,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -442,6 +450,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 
@@ -485,6 +494,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
+                        android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:text="@string/not_available"/>
 

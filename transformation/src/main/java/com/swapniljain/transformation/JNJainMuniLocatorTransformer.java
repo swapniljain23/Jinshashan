@@ -63,8 +63,9 @@ public class JNJainMuniLocatorTransformer {
             } else if (muniModel.getSuffix().equalsIgnoreCase("Mata Ji")) {
                 listModel.personalInfo.gender = "Female";
             } else {
-                listModel.personalInfo.gender = "NA";
+                listModel.personalInfo.gender = "N/A";
             }
+            listModel.photoURL = muniModel.getImgUrl();
 
             dataModel.put(Integer.toString(muniModel.getMid()), listModel);
         }
@@ -75,6 +76,9 @@ public class JNJainMuniLocatorTransformer {
 
     public String convertDate(String dateToConvert) {
         String convertedDate = "";
+        if (dateToConvert.equalsIgnoreCase("0000-00-00")) {
+            return convertedDate;
+        }
         SimpleDateFormat currentDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat expectedDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         try {

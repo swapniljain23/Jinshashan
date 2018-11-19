@@ -20,24 +20,30 @@ public class JNLoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1001;
     private static final String TAG = JNLoginActivity.class.toString();
+    private FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jnlogin);
 
-        // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build());
+        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFirebaseUser == null) {
+            // Choose authentication providers
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.EmailBuilder().build(),
+                    new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        // Create and launch sign-in intent
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
+            // Create and launch sign-in intent
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN);
+        } else {
+            startListActivity(mFirebaseUser, mFirebaseUser.getPhotoUrl());
+        }
     }
 
     @Override
@@ -47,10 +53,8 @@ public class JNLoginActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in.
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Log.d(TAG, "PhotoURL: " + user.getPhotoUrl());
-                startListActivity(user, user.getPhotoUrl());
-                finish();
+                mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                startListActivity(mFirebaseUser, mFirebaseUser.getPhotoUrl());
             } else {
                 // Sign in failed.
                 Log.d(TAG, "Failed to login.");
@@ -67,5 +71,6 @@ public class JNLoginActivity extends AppCompatActivity {
         intent.putExtra(JNListActivity.FIREBASE_USER_EXTRA, user);
         intent.putExtra(JNListActivity.USER_PHOTO_URI_EXTRA, userPhotoUrl);
         startActivity(intent);
+        finish();
     }
 }

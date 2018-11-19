@@ -6,4 +6,10 @@
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
+    <style name="AppTheme.JNDetailTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 </resources>

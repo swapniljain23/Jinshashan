@@ -29,6 +29,7 @@ public class JNMuniModel {
     private String uname;
     private String prefix;
     private String suffix;
+    private String imgUrl;
 
     @Override
     public String toString() {
@@ -244,5 +245,13 @@ public class JNMuniModel {
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

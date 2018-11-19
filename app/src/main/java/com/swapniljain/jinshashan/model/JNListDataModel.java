@@ -2,8 +2,10 @@ package com.swapniljain.jinshashan.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.firebase.database.DataSnapshot;
+import com.swapniljain.jinshashan.utils.JNUtils;
 
 public class JNListDataModel implements Parcelable {
 
@@ -50,6 +52,7 @@ public class JNListDataModel implements Parcelable {
     public class PersonalInfo {
         public String fullName;
         public String dateOfBirth;
+        public int age;
         public String gender;
         public String fatherNmae;
         public String motherName;
@@ -67,6 +70,7 @@ public class JNListDataModel implements Parcelable {
         public PersonalInfo(DataSnapshot snapshot) {
             fullName = snapshot.child("fullName").getValue(String.class);
             dateOfBirth = snapshot.child("dateOfBirth").getValue(String.class);
+            age = JNUtils.calculateAge(dateOfBirth);
             gender = snapshot.child("gender").getValue(String.class);
             fatherNmae = snapshot.child("fatherName").getValue(String.class);
             motherName = snapshot.child("motherName").getValue(String.class);
@@ -81,6 +85,7 @@ public class JNListDataModel implements Parcelable {
             return "Personal Info: " +
                     fullName + ", " +
                     dateOfBirth + ", " +
+                    age + ", " +
                     gender + ", " +
                     fatherNmae + ", " +
                     motherName + ", " +
@@ -185,7 +190,7 @@ public class JNListDataModel implements Parcelable {
         personalInfo = new PersonalInfo(dataSnapshot.child("personalInfo"));
         sect = new Sect(dataSnapshot.child("sect"));
         recentInfo = new RecentInfo(dataSnapshot.child("recentInfo"));
-        photoURL = dataSnapshot.child("photoUrl").getValue(String.class);
+        photoURL = dataSnapshot.child("photoURL").getValue(String.class);
         specialRemarks = dataSnapshot.child("specialRemarks").getValue(String.class);
     }
 
@@ -202,6 +207,7 @@ public class JNListDataModel implements Parcelable {
         personalInfo = new PersonalInfo();
         personalInfo.fullName = in.readString();
         personalInfo.dateOfBirth = in.readString();
+        personalInfo.age = in.readInt();
         personalInfo.gender = in.readString();
         personalInfo.fatherNmae = in.readString();
         personalInfo.motherName = in.readString();
@@ -273,6 +279,7 @@ public class JNListDataModel implements Parcelable {
 
         dest.writeString(personalInfo.fullName);
         dest.writeString(personalInfo.dateOfBirth);
+        dest.writeInt(personalInfo.age);
         dest.writeString(personalInfo.gender);
         dest.writeString(personalInfo.fatherNmae);
         dest.writeString(personalInfo.motherName);

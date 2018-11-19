@@ -10,13 +10,14 @@
 
     <!--Default text-->
     <string name="coming_soon_text">Stay tight, it\'s coming soon!!</string>
-    <string name="not_available">NA</string>
+    <string name="not_available">N/A</string>
     <string name="no_data_found">No data available. Please try again later.</string>
 
     <!-- Activity title text. -->
     <string name="title_activity_jndetail">Namo Loye Savv Sahunam</string>
     <string name="title_activity_jnfavorites">Favorites</string>
     <string name="title_activity_jntake_avow">Take A Vow Today</string>
+    <string name="title_activity_jnabout_us">About Us</string>
 
     <!--Labels-->
 
@@ -69,7 +70,24 @@
 
     <!--Dialogs-->
     <string name="ok_text">OK</string>
-    <string name="about_us_text">TBD</string>
+    <string name="about_us_text">
+        Jai Jinendra,
+
+        \n\nOur vision is to consolidate all our Jain Sadhu and Sadhvis information and make it
+        available for everyone within this app.
+
+        \n\nWe extend our thanks to \"jainmunilocator.org\" for providing us
+        Digambar Sadhu and Sadhvis information.
+
+        \n \nOur users are our source of information. If you have the most recent information
+        available about Jain Sadhu or Sadhvis, Please email us at \'swapnilabad@gmail.com\' or
+        update Digambar muni information at \"www.jainmunilocator.org\".
+
+        \n\nLooking forward for your contribution!!
+
+        \n\nThank you,
+        \nJinshashan Admin
+    </string>
     <string name="contact_us_text">
         Should you have any questions, concerns or suggestions. Kindly email us at
         \'swapnilabad@gmail.com\'.

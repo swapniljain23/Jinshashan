@@ -13,6 +13,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.JNDetailTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
     <!--Custom themes-->
     <style name="ExpandedTitleTextAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/white</item>

@@ -9,12 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activity.JNListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.JNLoginActivity"
             android:label="@string/app_name"
@@ -25,23 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.JNSearchResultsActivity" />
-
         <activity
             android:name=".activity.JNDetailActivity"
             android:label="@string/title_activity_jndetail"
             android:parentActivityName=".activity.JNListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
+            android:theme="@style/AppTheme.JNDetailTheme" />
         <activity
             android:name=".activity.JNFavoritesActivity"
             android:label="@string/title_activity_jnfavorites" />
-
         <activity
             android:name=".activity.JNTakeAVowActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_jntake_avow" />
+            android:label="@string/title_activity_jntake_avow"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
         <receiver android:name=".JNAppWidgetProvider">
@@ -54,6 +48,10 @@
                 android:resource="@xml/jnapp_widget_provider_info" />
         </receiver>
         -->
+
+        <activity android:name=".activity.JNAboutActivity"
+            android:label="@string/title_activity_jnabout_us"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
