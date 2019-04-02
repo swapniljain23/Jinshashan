@@ -93,4 +93,17 @@
         \'swapnilabad@gmail.com\'.
     </string>
 
+    <!-- Take a vow -->
+    <string name="try_it_out">Try it out!</string>
+    <string name="max_attempts_tried_msg">You\'ve made all 3 attempts today, try again tomorrow!</string>
+    <string name="max_attempts_allowed_msg">Max 3 attempts are allowed.</string>
+    <string name="vow_accepted_dialog_title">Thank you</string>
+    <string name="vow_accepted_dialog_message">
+        Thank you for taking a Vow today using Jinshashan app. See you tomorrow.
+    </string>
+
+    <!-- Button titles -->
+    <string name="generate_a_vow">Generate a new vow</string>
+    <string name="accept_this_vow">I accept this vow</string>
+    <string name="regenerate_a_vow">Regenerate a new vow</string>
 </resources>
